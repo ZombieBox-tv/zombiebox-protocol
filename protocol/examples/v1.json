@@ -10,7 +10,9 @@
       "androidApi": 13,
       "model": "VAP430",
       "abis": []
-    }
+    },
+    "installationId": "example-device",
+    "pairingCode": "123456"
   },
   "DeviceCapabilities": {
     "capabilitiesVersion": 1,
@@ -79,7 +81,16 @@
     "sessionId": "test-session",
     "mode": "DIRECT_PLAY",
     "url": "http://127.0.0.1:8090/samples/test.mp4",
-    "live": false
+    "live": false,
+    "mimeType": "video/mp4",
+    "seekable": true,
+    "resumePositionMs": 0,
+    "item": {
+      "id": "sample-1",
+      "provider": "sample",
+      "title": "Hello Zombie",
+      "kind": "video"
+    }
   },
   "ModuleStatus": {
     "id": "youtube",
@@ -95,5 +106,112 @@
       "state": "DISABLED",
       "features": []
     }
+  },
+  "Preferences": {
+    "mode": "AUTO",
+    "uiLanguage": "en",
+    "audioLanguages": [
+      "en",
+      "es"
+    ],
+    "subtitleLanguages": [
+      "en",
+      "es"
+    ],
+    "subtitleMode": "auto"
+  },
+  "RegistrationResponse": {
+    "apiVersion": 1,
+    "uiSchemaVersion": 1,
+    "playbackVersion": 1,
+    "capabilitiesVersion": 1,
+    "deviceId": "example-device",
+    "deviceToken": "0000000000000000000000000000000000000000000000000000000000000000",
+    "pairingRequired": false,
+    "presentation": {
+      "suggestedMode": "TV"
+    },
+    "preferences": {
+      "mode": "AUTO",
+      "uiLanguage": "en",
+      "audioLanguages": [
+        "en",
+        "es"
+      ],
+      "subtitleLanguages": [
+        "en",
+        "es"
+      ],
+      "subtitleMode": "auto"
+    }
+  },
+  "DeviceRecord": {
+    "deviceId": "example-device",
+    "registration": {
+      "clientVersion": "0.1.0",
+      "protocolVersion": 1,
+      "platform": {
+        "androidApi": 13,
+        "model": "VAP430",
+        "abis": []
+      },
+      "installationId": "example-device"
+    },
+    "preferences": {
+      "mode": "AUTO",
+      "uiLanguage": "en",
+      "audioLanguages": [
+        "en",
+        "es"
+      ],
+      "subtitleLanguages": [
+        "en",
+        "es"
+      ],
+      "subtitleMode": "auto"
+    },
+    "capabilities": {
+      "capabilitiesVersion": 1,
+      "deviceId": "test-device",
+      "probes": []
+    }
+  },
+  "ProviderStatus": {
+    "id": "iptv",
+    "title": "IPTV",
+    "enabled": false,
+    "configured": false,
+    "hasToken": false,
+    "implemented": true,
+    "managedByServer": false
+  },
+  "ProviderStatusResponse": {
+    "providers": [
+      {
+        "id": "iptv",
+        "title": "IPTV",
+        "enabled": false,
+        "configured": false,
+        "hasToken": false,
+        "implemented": true,
+        "managedByServer": false
+      }
+    ]
+  },
+  "EventBatch": {
+    "apiVersion": 1,
+    "cursor": "epoch:1",
+    "events": [
+      {
+        "apiVersion": 1,
+        "cursor": "1",
+        "type": "module.changed",
+        "payload": {
+          "id": "youtube",
+          "state": "DISABLED",
+          "features": []
+        }
+      }
+    ]
   }
 }

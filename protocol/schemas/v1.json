@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$comment": "Bootstrap draft, not implemented endpoints except Health. Unknown fields/types tolerated.",
+  "$comment": "Version 1 implementation checkpoint. See protocol/compatibility.md for implemented boundaries.",
   "$defs": {
     "Health": {
       "type": "object",
@@ -97,12 +97,21 @@
           },
           "required": [],
           "additionalProperties": true
+        },
+        "installationId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9_-]{8,80}$"
+        },
+        "pairingCode": {
+          "type": "string"
         }
       },
       "required": [
         "clientVersion",
         "protocolVersion",
-        "platform"
+        "platform",
+        "installationId",
+        "pairingCode"
       ],
       "additionalProperties": true
     },
@@ -326,13 +335,30 @@
           "items": {
             "$ref": "#/$defs/AudioTrack"
           }
+        },
+        "mimeType": {
+          "type": "string"
+        },
+        "seekable": {
+          "type": "boolean"
+        },
+        "resumePositionMs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "item": {
+          "$ref": "#/$defs/MediaItem"
         }
       },
       "required": [
         "playbackVersion",
         "sessionId",
         "mode",
-        "url"
+        "url",
+        "mimeType",
+        "seekable",
+        "resumePositionMs",
+        "item"
       ],
       "additionalProperties": true
     },
@@ -385,6 +411,301 @@
         "cursor",
         "type",
         "payload"
+      ],
+      "additionalProperties": true
+    },
+    "Preferences": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "enum": [
+            "AUTO",
+            "TV",
+            "DOCKED",
+            "HANDHELD"
+          ]
+        },
+        "uiLanguage": {
+          "enum": [
+            "en",
+            "es"
+          ]
+        },
+        "audioLanguages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "subtitleLanguages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "subtitleMode": {
+          "enum": [
+            "auto",
+            "off",
+            "forced",
+            "always"
+          ]
+        }
+      },
+      "required": [
+        "mode",
+        "uiLanguage",
+        "audioLanguages",
+        "subtitleLanguages",
+        "subtitleMode"
+      ],
+      "additionalProperties": true
+    },
+    "RegistrationResponse": {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "const": 1
+        },
+        "uiSchemaVersion": {
+          "const": 1
+        },
+        "playbackVersion": {
+          "const": 1
+        },
+        "capabilitiesVersion": {
+          "const": 1
+        },
+        "deviceId": {
+          "type": "string"
+        },
+        "deviceToken": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "pairingRequired": {
+          "const": false
+        },
+        "presentation": {
+          "type": "object",
+          "properties": {
+            "suggestedMode": {
+              "enum": [
+                "TV",
+                "HANDHELD"
+              ]
+            }
+          },
+          "required": [
+            "suggestedMode"
+          ],
+          "additionalProperties": true
+        },
+        "preferences": {
+          "$ref": "#/$defs/Preferences"
+        }
+      },
+      "required": [
+        "apiVersion",
+        "uiSchemaVersion",
+        "playbackVersion",
+        "capabilitiesVersion",
+        "deviceId",
+        "deviceToken",
+        "pairingRequired",
+        "presentation",
+        "preferences"
+      ],
+      "additionalProperties": true
+    },
+    "DeviceRecord": {
+      "type": "object",
+      "properties": {
+        "deviceId": {
+          "type": "string"
+        },
+        "registration": {
+          "type": "object",
+          "properties": {
+            "clientVersion": {
+              "type": "string"
+            },
+            "protocolVersion": {
+              "const": 1
+            },
+            "platform": {
+              "type": "object",
+              "properties": {
+                "androidApi": {
+                  "type": "integer",
+                  "minimum": 9
+                },
+                "release": {
+                  "type": "string"
+                },
+                "manufacturer": {
+                  "type": "string"
+                },
+                "model": {
+                  "type": "string"
+                },
+                "abis": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "androidApi"
+              ],
+              "additionalProperties": true
+            },
+            "display": {
+              "type": "object",
+              "properties": {
+                "width": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "height": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "dpi": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "touch": {
+                  "type": "boolean"
+                },
+                "dpad": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "width",
+                "height"
+              ],
+              "additionalProperties": true
+            },
+            "memory": {
+              "type": "object",
+              "properties": {
+                "physicalMb": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "memoryClassMb": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "required": [],
+              "additionalProperties": true
+            },
+            "installationId": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9_-]{8,80}$"
+            },
+            "pairingCode": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "clientVersion",
+            "protocolVersion",
+            "platform",
+            "installationId"
+          ],
+          "additionalProperties": true
+        },
+        "preferences": {
+          "$ref": "#/$defs/Preferences"
+        },
+        "capabilities": {
+          "$ref": "#/$defs/DeviceCapabilities"
+        }
+      },
+      "required": [
+        "deviceId",
+        "registration",
+        "preferences",
+        "capabilities"
+      ],
+      "additionalProperties": true
+    },
+    "ProviderStatus": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "configured": {
+          "type": "boolean"
+        },
+        "hasToken": {
+          "type": "boolean"
+        },
+        "implemented": {
+          "type": "boolean"
+        },
+        "managedByServer": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "enabled",
+        "configured",
+        "hasToken",
+        "implemented",
+        "managedByServer"
+      ],
+      "additionalProperties": true
+    },
+    "ProviderStatusResponse": {
+      "type": "object",
+      "properties": {
+        "providers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ProviderStatus"
+          }
+        }
+      },
+      "required": [
+        "providers"
+      ],
+      "additionalProperties": true
+    },
+    "EventBatch": {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "const": 1
+        },
+        "cursor": {
+          "type": "string"
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/EventEnvelope"
+          }
+        }
+      },
+      "required": [
+        "apiVersion",
+        "cursor",
+        "events"
       ],
       "additionalProperties": true
     }
