@@ -1,0 +1,392 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Bootstrap draft, not implemented endpoints except Health. Unknown fields/types tolerated.",
+  "$defs": {
+    "Health": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "const": "ok"
+        },
+        "apiVersion": {
+          "const": 1
+        }
+      },
+      "required": [
+        "status",
+        "apiVersion"
+      ],
+      "additionalProperties": true
+    },
+    "DeviceRegistration": {
+      "type": "object",
+      "properties": {
+        "clientVersion": {
+          "type": "string"
+        },
+        "protocolVersion": {
+          "const": 1
+        },
+        "platform": {
+          "type": "object",
+          "properties": {
+            "androidApi": {
+              "type": "integer",
+              "minimum": 9
+            },
+            "release": {
+              "type": "string"
+            },
+            "manufacturer": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "abis": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "androidApi"
+          ],
+          "additionalProperties": true
+        },
+        "display": {
+          "type": "object",
+          "properties": {
+            "width": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "height": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "dpi": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "touch": {
+              "type": "boolean"
+            },
+            "dpad": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "width",
+            "height"
+          ],
+          "additionalProperties": true
+        },
+        "memory": {
+          "type": "object",
+          "properties": {
+            "physicalMb": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "memoryClassMb": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [],
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "clientVersion",
+        "protocolVersion",
+        "platform"
+      ],
+      "additionalProperties": true
+    },
+    "DeviceCapabilities": {
+      "type": "object",
+      "properties": {
+        "capabilitiesVersion": {
+          "const": 1
+        },
+        "deviceId": {
+          "type": "string"
+        },
+        "probes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "PASS",
+                  "FAIL",
+                  "UNKNOWN"
+                ]
+              },
+              "prepareMs": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "id",
+              "status"
+            ],
+            "additionalProperties": true
+          }
+        }
+      },
+      "required": [
+        "capabilitiesVersion",
+        "deviceId",
+        "probes"
+      ],
+      "additionalProperties": true
+    },
+    "MediaItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "imageUrl": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "provider",
+        "kind",
+        "title"
+      ],
+      "additionalProperties": true
+    },
+    "HeroModel": {
+      "type": "object",
+      "properties": {
+        "item": {
+          "$ref": "#/$defs/MediaItem"
+        },
+        "description": {
+          "type": "string"
+        },
+        "backdropUrl": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "item"
+      ],
+      "additionalProperties": true
+    },
+    "SectionModel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/MediaItem"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type"
+      ],
+      "additionalProperties": true
+    },
+    "ScreenModel": {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "const": 1
+        },
+        "uiSchemaVersion": {
+          "const": 1
+        },
+        "hero": {
+          "$ref": "#/$defs/HeroModel"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SectionModel"
+          }
+        },
+        "screen": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "apiVersion",
+        "uiSchemaVersion",
+        "screen",
+        "sections"
+      ],
+      "additionalProperties": true
+    },
+    "SubtitleTrack": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "language",
+        "format"
+      ],
+      "additionalProperties": true
+    },
+    "AudioTrack": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "codec": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "language"
+      ],
+      "additionalProperties": true
+    },
+    "PlaybackPlan": {
+      "type": "object",
+      "properties": {
+        "playbackVersion": {
+          "const": 1
+        },
+        "sessionId": {
+          "type": "string"
+        },
+        "mode": {
+          "enum": [
+            "DIRECT_PLAY",
+            "REMUX",
+            "TRANSCODE",
+            "EXTERNAL_PLAYER"
+          ]
+        },
+        "url": {
+          "type": "string"
+        },
+        "live": {
+          "type": "boolean"
+        },
+        "subtitles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SubtitleTrack"
+          }
+        },
+        "audioTracks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/AudioTrack"
+          }
+        }
+      },
+      "required": [
+        "playbackVersion",
+        "sessionId",
+        "mode",
+        "url"
+      ],
+      "additionalProperties": true
+    },
+    "ModuleStatus": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "DISABLED",
+            "STARTING",
+            "HEALTHY",
+            "DEGRADED",
+            "FAILED"
+          ]
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "state"
+      ],
+      "additionalProperties": true
+    },
+    "EventEnvelope": {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "const": 1
+        },
+        "cursor": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "payload": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "apiVersion",
+        "cursor",
+        "type",
+        "payload"
+      ],
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "Health": {
+    "status": "ok",
+    "apiVersion": 1
+  },
+  "DeviceRegistration": {
+    "clientVersion": "0.1.0",
+    "protocolVersion": 1,
+    "platform": {
+      "androidApi": 13,
+      "model": "VAP430",
+      "abis": []
+    }
+  },
+  "DeviceCapabilities": {
+    "capabilitiesVersion": 1,
+    "deviceId": "test-device",
+    "probes": []
+  },
+  "MediaItem": {
+    "id": "sample-1",
+    "provider": "sample",
+    "title": "Hello Zombie",
+    "kind": "video"
+  },
+  "HeroModel": {
+    "item": {
+      "id": "sample-1",
+      "provider": "sample",
+      "title": "Hello Zombie",
+      "kind": "video"
+    }
+  },
+  "SectionModel": {
+    "id": "test-row",
+    "type": "poster_row",
+    "title": "Test media",
+    "items": [
+      {
+        "id": "sample-1",
+        "provider": "sample",
+        "title": "Hello Zombie",
+        "kind": "video"
+      }
+    ]
+  },
+  "ScreenModel": {
+    "apiVersion": 1,
+    "uiSchemaVersion": 1,
+    "sections": [
+      {
+        "id": "test-row",
+        "type": "poster_row",
+        "title": "Test media",
+        "items": [
+          {
+            "id": "sample-1",
+            "provider": "sample",
+            "title": "Hello Zombie",
+            "kind": "video"
+          }
+        ]
+      }
+    ],
+    "screen": "home"
+  },
+  "SubtitleTrack": {
+    "id": "sub-1",
+    "language": "es",
+    "format": "srt"
+  },
+  "AudioTrack": {
+    "id": "audio-1",
+    "language": "es",
+    "codec": "aac"
+  },
+  "PlaybackPlan": {
+    "playbackVersion": 1,
+    "sessionId": "test-session",
+    "mode": "DIRECT_PLAY",
+    "url": "http://127.0.0.1:8090/samples/test.mp4",
+    "live": false
+  },
+  "ModuleStatus": {
+    "id": "youtube",
+    "state": "DISABLED",
+    "features": []
+  },
+  "EventEnvelope": {
+    "apiVersion": 1,
+    "cursor": "1",
+    "type": "module.changed",
+    "payload": {
+      "id": "youtube",
+      "state": "DISABLED",
+      "features": []
+    }
+  }
+}
