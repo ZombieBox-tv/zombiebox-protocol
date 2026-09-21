@@ -14,7 +14,8 @@
     "Dev.20: Additive LOW/STANDARD playback quality and automatic media-receiver selection; NowPlaying accepts AirPlay and automatic idle states. Product and physical exit gates remain open.",
     "Dev.21: Additive measured-network and federated-search contracts; bounded streaming transport sample. API version remains 1. Product/physical exit gates remain open.",
     "Dev.22: Additive receiver replacement requests, receiver-bound playback and target-owned Cast handoff consent; 49 schema fixtures. Product and physical exit gates remain open.",
-    "Dev.23: Shared bounded IPv4 scanner and untrusted semantic locators; no token transfer or API-version change. Product and physical gates remain open."
+    "Dev.23: Shared bounded IPv4 scanner and untrusted semantic locators; no token transfer or API-version change. Product and physical gates remain open.",
+    "Dev.24: Additive companion schemas/fixtures, shared consent/remote wire mapping and cross-language gateway proof. Protocol version remains 1; no native library or Cast-only dependency enters the shared module. Product and physical gates remain open."
   ],
   "milestones": [
     {
@@ -95,5 +96,5 @@
       "remoteId": null
     }
   ],
-  "developmentCheckpoint": "v0.1.0-dev.23"
+  "developmentCheckpoint": "v0.1.0-dev.24"
 }

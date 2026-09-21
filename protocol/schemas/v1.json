@@ -1754,6 +1754,229 @@
         }
       },
       "additionalProperties": true
+    },
+    "CompanionQR": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": 1
+        },
+        "gateway": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "invitationId": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$"
+        },
+        "secret": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": ["version", "gateway", "invitationId", "secret"],
+      "additionalProperties": true
+    },
+    "CompanionInvitation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$"
+        },
+        "code": {
+          "type": "string",
+          "pattern": "^[0-9]{6}$"
+        },
+        "expires": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "qrPng": {
+          "type": "string",
+          "maxLength": 128000
+        },
+        "remainingMs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 120000
+        }
+      },
+      "required": ["id", "code", "expires", "qrPng", "remainingMs"],
+      "additionalProperties": true
+    },
+    "CompanionRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$"
+        },
+        "targetId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "comparison": {
+          "type": "string",
+          "pattern": "^[0-9]{6}$"
+        },
+        "state": {
+          "enum": ["PENDING", "APPROVED", "DENIED"]
+        },
+        "expires": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "targetId", "name", "comparison", "state", "expires"],
+      "additionalProperties": true
+    },
+    "CompanionGrant": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$"
+        },
+        "targetId": {
+          "type": "string"
+        },
+        "targetName": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "targetId", "targetName", "name", "created"],
+      "additionalProperties": true
+    },
+    "CompanionCommand": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$"
+        },
+        "action": {
+          "enum": [
+            "UP",
+            "DOWN",
+            "LEFT",
+            "RIGHT",
+            "OK",
+            "BACK",
+            "HOME",
+            "PLAY_PAUSE",
+            "STOP",
+            "NEXT",
+            "SEEK_BACK",
+            "SEEK_FORWARD",
+            "VOLUME_UP",
+            "VOLUME_DOWN",
+            "MUTE",
+            "PROVIDER"
+          ]
+        },
+        "provider": {
+          "enum": ["youtube", "plex", "stremio", "jellyfin", "iptv", "spotify", "airplay"]
+        },
+        "remainingMs": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2000
+        }
+      },
+      "required": ["id", "action", "remainingMs"],
+      "additionalProperties": true
+    },
+    "CompanionResult": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "enum": ["", "QUEUED", "DELIVERED", "EXECUTED", "BUSY", "UNSUPPORTED", "EXPIRED"]
+        }
+      },
+      "required": ["id", "status"],
+      "additionalProperties": true
+    },
+    "CompanionJoinResponse": {
+      "type": "object",
+      "properties": {
+        "request": {
+          "$ref": "#/$defs/CompanionRequest"
+        },
+        "token": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": ["request", "token"],
+      "additionalProperties": true
+    },
+    "CompanionStatus": {
+      "type": "object",
+      "properties": {
+        "grant": {
+          "$ref": "#/$defs/CompanionGrant"
+        },
+        "remoteOnline": {
+          "type": "boolean"
+        },
+        "castAvailable": {
+          "type": "boolean"
+        },
+        "lastCommand": {
+          "$ref": "#/$defs/CompanionResult"
+        }
+      },
+      "required": ["grant", "remoteOnline", "castAvailable", "lastCommand"],
+      "additionalProperties": true
+    },
+    "CompanionInventory": {
+      "type": "object",
+      "properties": {
+        "requests": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {
+            "$ref": "#/$defs/CompanionRequest"
+          }
+        },
+        "grants": {
+          "type": "array",
+          "maxItems": 128,
+          "items": {
+            "$ref": "#/$defs/CompanionGrant"
+          }
+        }
+      },
+      "required": ["requests", "grants"],
+      "additionalProperties": true
+    },
+    "CompanionPoll": {
+      "type": "object",
+      "properties": {
+        "commands": {
+          "type": "array",
+          "maxItems": 16,
+          "items": {
+            "$ref": "#/$defs/CompanionCommand"
+          }
+        }
+      },
+      "required": ["commands"],
+      "additionalProperties": true
     }
   }
 }

@@ -56,3 +56,9 @@ Verification: 49 draft schemas/fixtures and live handler response contracts pass
 
 Shared bounded IPv4 scanner and untrusted semantic locators; no token transfer or API-version change.
 Product exit gates and deferred physical acceptance remain open.
+
+
+## dev.24 increment
+
+Additive companion schemas/fixtures, shared consent/remote wire mapping and cross-language gateway proof. Protocol version remains 1; no native library or Cast-only dependency enters the shared module.
+Full visual/capture policy, extended Remote, HEVC/4K and other product gates remain open; physical acceptance stays deferred.

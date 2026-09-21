@@ -54,3 +54,9 @@ No product or physical acceptance gate closes.
 
 Shared bounded IPv4 UDP scanner and semantic gateway locators. Discovery conveys no identity or credentials.
 No product or physical acceptance gate closes.
+
+
+## dev.24 increment
+
+Additive companion schemas/fixtures, shared consent/remote wire mapping and cross-language gateway proof. Protocol version remains 1; no native library or Cast-only dependency enters the shared module.
+Full visual/capture policy, extended Remote, HEVC/4K and other product gates remain open; physical acceptance stays deferred.

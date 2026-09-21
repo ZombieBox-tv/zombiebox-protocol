@@ -475,5 +475,91 @@
   },
   "YouTubeReceiverRequest": {
     "replaceExisting": true
+  },
+  "CompanionQR": {
+    "version": 1,
+    "gateway": "http://192.168.1.2:8090",
+    "invitationId": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "secret": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "CompanionInvitation": {
+    "id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "code": "123456",
+    "expires": "2026-09-21T12:02:00Z",
+    "qrPng": "iVBORw0KGgo=",
+    "remainingMs": 120000
+  },
+  "CompanionRequest": {
+    "id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "targetId": "target-tv",
+    "name": "Phone",
+    "comparison": "987654",
+    "state": "PENDING",
+    "expires": "2026-09-21T12:02:00Z"
+  },
+  "CompanionGrant": {
+    "id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "targetId": "target-tv",
+    "targetName": "TV",
+    "name": "Phone",
+    "created": "2026-09-21T12:00:20Z"
+  },
+  "CompanionCommand": {
+    "id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "action": "PROVIDER",
+    "provider": "youtube",
+    "remainingMs": 2000
+  },
+  "CompanionResult": {
+    "id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "status": "EXECUTED"
+  },
+  "CompanionJoinResponse": {
+    "request": {
+      "id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "targetId": "target-tv",
+      "name": "Phone",
+      "comparison": "987654",
+      "state": "PENDING",
+      "expires": "2026-09-21T12:02:00Z"
+    },
+    "token": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "CompanionStatus": {
+    "grant": {
+      "id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "targetId": "target-tv",
+      "targetName": "TV",
+      "name": "Phone",
+      "created": "2026-09-21T12:00:20Z"
+    },
+    "remoteOnline": true,
+    "castAvailable": false,
+    "lastCommand": {
+      "id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "status": "EXECUTED"
+    }
+  },
+  "CompanionInventory": {
+    "requests": [],
+    "grants": [
+      {
+        "id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "targetId": "target-tv",
+        "targetName": "TV",
+        "name": "Phone",
+        "created": "2026-09-21T12:00:20Z"
+      }
+    ]
+  },
+  "CompanionPoll": {
+    "commands": [
+      {
+        "id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "action": "PROVIDER",
+        "provider": "youtube",
+        "remainingMs": 2000
+      }
+    ]
   }
 }

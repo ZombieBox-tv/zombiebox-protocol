@@ -104,9 +104,10 @@ class GatewayApi {
         try {
             if (closed) throw GatewayFailure(503)
             http.requestMethod = method
-            http.connectTimeout = if (path == "/v1/device/network") 1500 else 5000
+            http.connectTimeout =
+                if (path == "/v1/device/network" || path == "/v1/companion/proof") 1500 else 5000
             http.readTimeout =
-                if (path == "/v1/device/network") 1500
+                if (path == "/v1/device/network" || path == "/v1/companion/proof") 1500
                 else if (path == "/v1/playback") 30000
                 else if (path.startsWith("/v1/events")) 25000
                 else if (path == "/v1/youtube/receiver") 25000
