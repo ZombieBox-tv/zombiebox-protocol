@@ -661,6 +661,9 @@
           "type": "integer",
           "minimum": 0,
           "maximum": 604800000
+        },
+        "quality": {
+          "enum": ["STANDARD", "LOW"]
         }
       },
       "required": ["itemId"],
@@ -829,7 +832,7 @@
       "type": "object",
       "properties": {
         "provider": {
-          "const": "spotify"
+          "enum": ["spotify", "airplay", "auto"]
         },
         "state": {
           "type": "string"
@@ -1340,7 +1343,7 @@
           "type": "boolean"
         },
         "provider": {
-          "enum": ["", "spotify", "airplay"]
+          "enum": ["", "spotify", "airplay", "auto"]
         },
         "plan": {
           "anyOf": [
@@ -1363,7 +1366,7 @@
       "type": "object",
       "properties": {
         "provider": {
-          "enum": ["spotify", "airplay"]
+          "enum": ["spotify", "airplay", "auto"]
         }
       },
       "required": ["provider"],
