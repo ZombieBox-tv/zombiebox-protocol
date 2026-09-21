@@ -865,6 +865,207 @@
         "plan"
       ],
       "additionalProperties": true
+    },
+    "IntegrationStatus": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "runtime": {
+          "type": "string"
+        },
+        "implementation": {
+          "type": "string"
+        },
+        "full": {
+          "type": "string"
+        },
+        "edge": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "provider",
+        "runtime",
+        "implementation",
+        "full",
+        "edge",
+        "state"
+      ],
+      "additionalProperties": true
+    },
+    "IntegrationResponse": {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "const": 1
+        },
+        "integrations": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "$ref": "#/$defs/IntegrationStatus"
+          }
+        }
+      },
+      "required": [
+        "apiVersion",
+        "integrations"
+      ],
+      "additionalProperties": true
+    },
+    "NowPlaying": {
+      "type": "object",
+      "properties": {
+        "provider": {
+          "const": "spotify"
+        },
+        "state": {
+          "type": "string"
+        },
+        "volume": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "positionMs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "item": {
+          "$ref": "#/$defs/MediaItem"
+        }
+      },
+      "required": [
+        "provider",
+        "state",
+        "volume",
+        "positionMs"
+      ],
+      "additionalProperties": true
+    },
+    "PlayerCommand": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "enum": [
+            "pause",
+            "resume",
+            "next",
+            "previous",
+            "stop",
+            "seek",
+            "volume"
+          ]
+        },
+        "positionMs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 604800000
+        },
+        "volume": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "required": [
+        "action"
+      ],
+      "additionalProperties": true
+    },
+    "AuthorizationPrompt": {
+      "type": "object",
+      "properties": {
+        "state": {
+          "enum": [
+            "NONE",
+            "WAITING"
+          ]
+        },
+        "url": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "expiresAt": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "state"
+      ],
+      "additionalProperties": true
+    },
+    "BrowserRequest": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "maxLength": 2048
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "additionalProperties": true
+    },
+    "BrowserSession": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{32}$"
+        },
+        "width": {
+          "const": 960
+        },
+        "height": {
+          "const": 540
+        },
+        "idleSeconds": {
+          "const": 90
+        }
+      },
+      "required": [
+        "sessionId",
+        "width",
+        "height",
+        "idleSeconds"
+      ],
+      "additionalProperties": true
+    },
+    "BrowserInput": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "enum": [
+            "navigate",
+            "text",
+            "key",
+            "back",
+            "forward",
+            "reload"
+          ]
+        },
+        "text": {
+          "type": "string",
+          "maxLength": 2048
+        }
+      },
+      "required": [
+        "action"
+      ],
+      "additionalProperties": true
     }
   }
 }

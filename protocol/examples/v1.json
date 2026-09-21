@@ -248,5 +248,53 @@
   },
   "ActiveCast": {
     "plan": null
+  },
+  "IntegrationStatus": {
+    "id": "spotify",
+    "provider": "spotify",
+    "runtime": "go-librespot",
+    "implementation": "partial",
+    "full": "available",
+    "edge": "experimental",
+    "state": "DISABLED"
+  },
+  "NowPlaying": {
+    "provider": "spotify",
+    "state": "STOPPED",
+    "volume": 0,
+    "positionMs": 0
+  },
+  "PlayerCommand": {
+    "action": "pause"
+  },
+  "AuthorizationPrompt": {
+    "state": "NONE"
+  },
+  "BrowserRequest": {
+    "url": "https://example.org"
+  },
+  "BrowserSession": {
+    "sessionId": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "width": 960,
+    "height": 540,
+    "idleSeconds": 90
+  },
+  "BrowserInput": {
+    "action": "key",
+    "text": "Tab"
+  },
+  "IntegrationResponse": {
+    "apiVersion": 1,
+    "integrations": [
+      {
+        "id": "spotify",
+        "provider": "spotify",
+        "runtime": "go-librespot",
+        "implementation": "partial",
+        "full": "available",
+        "edge": "experimental",
+        "state": "DISABLED"
+      }
+    ]
   }
 }

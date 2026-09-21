@@ -37,3 +37,22 @@ Local planning uses ffprobe metadata and existing PASS/FAIL/UNKNOWN reports. Unk
 `allowCasting` defaults to false. See [mirroring endpoints and lifecycle](../docs/development/mirroring.md). `CastRequest`, `CastGrant`, `CastReceivers` and `ActiveCast` describe the authenticated negotiation. `LIVE_LOW_LATENCY` is an additional PlaybackPlan mode using HLS MPEG-TS; receivers must inspect `live`/`seekable`, not infer a measured latency guarantee. Live playback progress is not added to Continue Watching.
 
 Existing clients that PUT preferences without `allowCasting` disable receiving. Cast sources and internal HLS credentials are ephemeral and are not catalog entries. Gateway restarts clear live casts and invalidate their tickets; persisted device/provider configuration survives.
+
+## Services and browser additions (dev.5)
+
+- `GET /v1/integrations`: bounded independent checks with implementation and
+  Full/Edge support descriptors. READY means the adapter/process endpoint
+  responded; it does not certify accounts, playback or physical compatibility.
+- `GET /v1/player/spotify`: semantic Now Playing. `POST` accepts a finite
+  `PlayerCommand`; writes require the current operator code and a paired device.
+- `GET /v1/player/spotify/authorization`: transient device-auth code/URL,
+  administrator-only. Provider access/refresh tokens never leave the gateway.
+- `POST /v1/browser`: URL → one owned 960×540 ephemeral BrowserSession.
+  `GET /v1/browser/{id}/frame` returns JPEG capped at 1 MiB.
+  `POST /v1/browser/{id}/input` accepts navigation/key/text commands;
+  `DELETE /v1/browser/{id}` releases the private browser/profile. Idle expiry is
+  90 seconds. No remote JavaScript evaluation or provider HTML/DTO API is exposed.
+
+AirPlay catalog now has separate video and audio live sources; inactive sources
+are not playable. Spotify uses a live MP3 bridge. These additions do not change
+protocol/UI/playback version 1 and old clients may ignore new optional features.
