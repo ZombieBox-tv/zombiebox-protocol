@@ -6,6 +6,7 @@
 
 import json
 from pathlib import Path
+
 from jsonschema import Draft202012Validator
 
 root = Path(__file__).resolve().parents[1] / "protocol"
