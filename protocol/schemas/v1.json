@@ -1271,6 +1271,42 @@
       },
       "required": ["items", "title", "nextOffset"],
       "additionalProperties": true
+    },
+    "MediaReceiver": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "provider": {
+          "enum": ["", "spotify", "airplay"]
+        },
+        "plan": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PlaybackPlan"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "nowPlaying": {
+          "$ref": "#/$defs/NowPlaying"
+        }
+      },
+      "required": ["enabled", "provider", "plan"],
+      "additionalProperties": true
+    },
+    "MediaReceiverSelection": {
+      "type": "object",
+      "properties": {
+        "provider": {
+          "enum": ["spotify", "airplay"]
+        }
+      },
+      "required": ["provider"],
+      "additionalProperties": true
     }
   }
 }

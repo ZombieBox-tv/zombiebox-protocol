@@ -19,3 +19,7 @@ issues/milestones can be attached to the shared GitHub Project once remotes exis
 
 Additive BrowsePage/browseId/playable contract and playback POST timeout for remote probes; no provider URLs or credentials in the client contract.
 No product milestone or physical/account gate is completed by this checkpoint.
+
+## dev.12 increment
+
+MediaReceiver snapshot/selection contracts and documented CastGrant constraints. Physical validation remains separate.

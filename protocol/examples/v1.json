@@ -379,5 +379,13 @@
       }
     ],
     "nextOffset": -1
+  },
+  "MediaReceiver": {
+    "enabled": false,
+    "provider": "",
+    "plan": null
+  },
+  "MediaReceiverSelection": {
+    "provider": "spotify"
   }
 }

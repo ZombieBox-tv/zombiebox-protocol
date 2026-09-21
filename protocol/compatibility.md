@@ -117,3 +117,26 @@ Private YouTube `audioUrl` remains a worker/core detail. Client playback receive
 one gateway URL whether the origin is combined or adaptive. Shared playback POST
 read timeout is 30 seconds to cover resolver and bounded remote probe work.
 Converted streams retain the existing non-seekable/timeline-offset contract.
+
+## dev.12: selected media receiver and Cast encoder budgets
+
+`PUT /v1/media-receiver` with `{ "provider": "spotify" | "airplay" }` arms the
+paired client for one shared output; a different active owner receives 409.
+`GET /v1/media-receiver` renews the owner's 45-second foreground lease and returns
+`MediaReceiver`: enabled/provider, nullable playback plan and optional semantic
+NowPlaying. Other clients receive disabled state without the owner's plan.
+`DELETE` releases only the caller's lease. Normal playback DELETE suppresses an
+incoming source until idle or an explicit re-arm. GET is a polling/lease operation,
+not a cached discovery endpoint; responses must not be cached.
+
+Fresh source activity chooses a single live, non-seekable plan. Metadata changes
+retain its session ID. Network failure is 502, not a fabricated idle state. The
+selected Spotify receiver can send the existing finite player commands without
+an operator code; other paired clients still require the operator code. Provider
+credentials, worker addresses and raw metadata DTOs never cross this boundary.
+
+CastGrant's existing `video` fields are actual encoder constraints. The current
+sender validates bounds and fits both dimensions into them, aligning to 16 pixels.
+Missing values use a conservative 640x360/24fps/800kbps candidate. A negotiated
+budget is not runtime validation and does not imply arbitrary internal audio
+capture, rotation recovery or native/OEM support.
