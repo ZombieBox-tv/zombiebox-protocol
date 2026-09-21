@@ -640,6 +640,11 @@
         },
         "mode": {
           "enum": ["AUTO", "DIRECT_PLAY", "REMUX", "TRANSCODE", "EXTERNAL_PLAYER"]
+        },
+        "positionMs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 604800000
         }
       },
       "required": ["itemId"],

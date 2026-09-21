@@ -140,3 +140,11 @@ sender validates bounds and fits both dimensions into them, aligning to 16 pixel
 Missing values use a conservative 640x360/24fps/800kbps candidate. A negotiated
 budget is not runtime validation and does not imply arbitrary internal audio
 capture, rotation recovery or native/OEM support.
+
+## dev.13 playback position override
+
+PlaybackRequest accepts optional `positionMs` (integer, 0–604800000). Omission
+uses stored progress; explicit zero restarts VOD; live plans always start at the
+current edge. Transcoded output retains its source timeline offset. Older gateways
+may ignore this additive field, so exact retry-position behavior requires dev.13.
+The change adds no provider URLs or credentials to the wire contract.

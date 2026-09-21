@@ -23,3 +23,8 @@ No product milestone or physical/account gate is completed by this checkpoint.
 ## dev.12 increment
 
 MediaReceiver snapshot/selection contracts and documented CastGrant constraints. Physical validation remains separate.
+
+## dev.13 increment
+
+Adds optional bounded PlaybackRequest.positionMs; older clients retain stored-history behavior.
+No product milestone or physical/account gate closes with this checkpoint.

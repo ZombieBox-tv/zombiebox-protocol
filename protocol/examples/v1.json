@@ -198,7 +198,8 @@
   },
   "PlaybackRequest": {
     "itemId": "local-sample",
-    "mode": "AUTO"
+    "mode": "AUTO",
+    "positionMs": 0
   },
   "CastRequest": {
     "receiverId": "receiver-device"
