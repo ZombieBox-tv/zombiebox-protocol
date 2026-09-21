@@ -40,7 +40,7 @@ class GatewayApi {
             if (closed) throw GatewayFailure(503)
             http.requestMethod = method
             http.connectTimeout = 5000
-            http.readTimeout = if (path.startsWith("/v1/events")) 25000 else if (path == "/v1/browser") 20000 else 12000
+            http.readTimeout = if (path.startsWith("/v1/events")) 25000 else if (path == "/v1/youtube/receiver") 25000 else if (path == "/v1/browser") 20000 else 12000
             http.instanceFollowRedirects = false
             http.useCaches = false
             http.setRequestProperty("Accept", "application/json")
