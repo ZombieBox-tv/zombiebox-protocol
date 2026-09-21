@@ -101,3 +101,19 @@ These endpoints require session ownership and device authentication; no paths,
 provider headers or arbitrary process arguments are exposed. GatewayApi retains
 its 1 MiB limit and permits 45 seconds for subtitle probe/extraction. The client
 preserves selected subtitles across audio switches, with stale-result guards.
+
+## dev.11: hierarchical browsing and remote adaptation
+
+`GET /v1/browse` accepts a provider (`plex`, `jellyfin`, `stremio`), optional opaque
+`parent`, `q` and `offset` (0–10000). `BrowsePage` contains a title, at most 40
+`MediaItem`s and `nextOffset` (-1 ends). Follow the returned offset; it need not
+advance by 40. Optional `browseId` means navigate; `playable: false` must not create
+a playback session. Older item fields remain unchanged. Unknown kinds render a
+text fallback. Parents/sources are scoped to the paired device and provider config
+revision, expire after 30 minutes and can be evicted; 410 requires navigation from
+an available ancestor/root. No provider URLs/tokens or presentation coordinates.
+
+Private YouTube `audioUrl` remains a worker/core detail. Client playback receives
+one gateway URL whether the origin is combined or adaptive. Shared playback POST
+read timeout is 30 seconds to cover resolver and bounded remote probe work.
+Converted streams retain the existing non-seekable/timeline-offset contract.

@@ -14,3 +14,8 @@ and evolve shared protocol contracts in their owning repository.
 Keep a separate validation track for hardware/account/latency/memory evidence.
 Use development checkpoint tags until complete exit gates are evidenced. Hosted
 issues/milestones can be attached to the shared GitHub Project once remotes exist.
+
+## dev.11 increment
+
+Additive BrowsePage/browseId/playable contract and playback POST timeout for remote probes; no provider URLs or credentials in the client contract.
+No product milestone or physical/account gate is completed by this checkpoint.

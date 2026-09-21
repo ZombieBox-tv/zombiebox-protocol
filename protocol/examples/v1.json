@@ -365,5 +365,19 @@
   "AudioSelection": {
     "audioId": 1,
     "positionMs": 1250
+  },
+  "BrowsePage": {
+    "title": "TV library",
+    "items": [
+      {
+        "id": "browse-example",
+        "browseId": "browse-example",
+        "provider": "plex",
+        "title": "Example series",
+        "kind": "show",
+        "playable": false
+      }
+    ],
+    "nextOffset": -1
   }
 }

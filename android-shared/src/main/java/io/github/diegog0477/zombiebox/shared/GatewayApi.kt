@@ -58,7 +58,8 @@ class GatewayApi {
             http.requestMethod = method
             http.connectTimeout = 5000
             http.readTimeout =
-                if (path.startsWith("/v1/events")) 25000
+                if (path == "/v1/playback") 30000
+                else if (path.startsWith("/v1/events")) 25000
                 else if (path == "/v1/youtube/receiver") 25000
                 else if (path == "/v1/browser") 20000
                 else if (path.startsWith("/v1/playback/") && path.contains("/subtitles/")) 45000

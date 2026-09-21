@@ -170,6 +170,13 @@
         },
         "kind": {
           "type": "string"
+        },
+        "browseId": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "playable": {
+          "type": "boolean"
         }
       },
       "required": ["id", "provider", "kind", "title"],
@@ -1242,6 +1249,27 @@
         }
       },
       "required": ["audioId", "positionMs"],
+      "additionalProperties": true
+    },
+    "BrowsePage": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "maxItems": 40,
+          "items": {
+            "$ref": "#/$defs/MediaItem"
+          }
+        },
+        "nextOffset": {
+          "type": "integer",
+          "minimum": -1
+        }
+      },
+      "required": ["items", "title", "nextOffset"],
       "additionalProperties": true
     }
   }

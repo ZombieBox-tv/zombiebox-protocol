@@ -4,7 +4,8 @@
   "productRegistry": "workspace:docs/milestones.json",
   "notes": [
     "Local component scope; product exit gates remain open. No hosted milestones exist.",
-    "Dev.10: shared local media tracks/text subtitles and client Home refinement. Cast consumes the protocol transport update. Product exit gates remain open."
+    "Dev.10: shared local media tracks/text subtitles and client Home refinement. Cast consumes the protocol transport update. Product exit gates remain open.",
+    "Dev.11: Additive BrowsePage/browseId/playable contract and playback POST timeout for remote probes; no provider URLs or credentials in the client contract. Product exit gates remain open."
   ],
   "milestones": [
     {
@@ -85,5 +86,5 @@
       "remoteId": null
     }
   ],
-  "developmentCheckpoint": "v0.1.0-dev.10"
+  "developmentCheckpoint": "v0.1.0-dev.11"
 }
