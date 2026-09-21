@@ -14,3 +14,5 @@ android {
 }
 
 kotlin { compilerOptions { jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8) } }
+
+dependencies { testImplementation("junit:junit:4.13.2") }

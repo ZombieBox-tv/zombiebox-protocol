@@ -51,3 +51,8 @@ Additive receiver replacement requests, receiver-bound playback and target-owned
 No product or physical acceptance gate closes.
 
 Verification: 49 draft schemas/fixtures and live handler response contracts pass; fields are additive and default replacement consent remains false.
+
+## dev.23 increment
+
+Shared bounded IPv4 scanner and untrusted semantic locators; no token transfer or API-version change.
+Product exit gates and deferred physical acceptance remain open.

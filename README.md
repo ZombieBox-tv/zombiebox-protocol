@@ -49,3 +49,8 @@ Dev.21: Additive measured-network and federated-search contracts; bounded stream
 
 Additive receiver replacement requests, receiver-bound playback and target-owned Cast handoff consent; 49 schema fixtures.
 No product or physical acceptance gate closes.
+
+## dev.23 increment
+
+Shared bounded IPv4 UDP scanner and semantic gateway locators. Discovery conveys no identity or credentials.
+No product or physical acceptance gate closes.
