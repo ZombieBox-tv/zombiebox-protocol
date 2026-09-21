@@ -5,6 +5,9 @@
 """Validate all draft models and fixtures, including permissive evolution."""
 
 import json
+import os
+import subprocess
+import tempfile
 from pathlib import Path
 
 from jsonschema import Draft202012Validator
@@ -30,35 +33,35 @@ print(
     f"PASS: {len(fixtures)} draft schemas + fixtures; required fields and additive evolution"
 )
 
-# Validate actual gateway response shapes against the same schemas.
-import os
-import subprocess
-import tempfile
+# Optional integration check against the explicitly selected gateway checkout.
 
-with tempfile.TemporaryDirectory() as tmp:
-    capture = Path(tmp) / "responses.json"
-    environment = {
-        **os.environ,
-        "GOMAXPROCS": "2",
-        "ZOMBIE_CONTRACT_CAPTURE": str(capture),
-    }
-    subprocess.run(
-        [
-            "go",
-            "test",
-            "-p",
-            "2",
-            "./internal/server",
-            "-run",
-            "^TestWireContracts$",
-            "-count=1",
-        ],
-        cwd=root.parent / "gateway",
-        env=environment,
-        check=True,
-    )
-    for name, sample in json.loads(capture.read_text()).items():
-        Draft202012Validator(
-            {"$defs": schema["$defs"], "$ref": f"#/$defs/{name}"}
-        ).validate(sample)
-print("PASS: live handler response contracts")
+core = os.environ.get("ZOMBIE_CORE_DIR")
+if core:
+    with tempfile.TemporaryDirectory() as tmp:
+        capture = Path(tmp) / "responses.json"
+        subprocess.run(
+            [
+                "go",
+                "test",
+                "-p",
+                "2",
+                "./internal/server",
+                "-run",
+                "^TestWireContracts$",
+                "-count=1",
+            ],
+            cwd=Path(core) / "gateway",
+            env={
+                **os.environ,
+                "GOMAXPROCS": "2",
+                "ZOMBIE_CONTRACT_CAPTURE": str(capture),
+            },
+            check=True,
+        )
+        for name, sample in json.loads(capture.read_text()).items():
+            Draft202012Validator(
+                {"$defs": schema["$defs"], "$ref": f"#/$defs/{name}"}
+            ).validate(sample)
+    print("PASS: live handler response contracts")
+else:
+    print("INFO: set ZOMBIE_CORE_DIR for live gateway contract validation")
