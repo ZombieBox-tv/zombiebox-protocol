@@ -472,5 +472,8 @@
         "more": false
       }
     ]
+  },
+  "YouTubeReceiverRequest": {
+    "replaceExisting": true
   }
 }

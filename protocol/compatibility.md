@@ -148,3 +148,19 @@ uses stored progress; explicit zero restarts VOD; live plans always start at the
 current edge. Transcoded output retains its source timeline offset. Older gateways
 may ignore this additive field, so exact retry-position behavior requires dev.13.
 The change adds no provider URLs or credentials to the wire contract.
+
+## dev.22 coordinated receiver replacement
+
+`YouTubeReceiverRequest`, `MediaReceiverSelection` and `CastRequest` accept optional
+`replaceExisting` (default false). Target-side media/YouTube selection may replace
+that device's current transport after the new claim succeeds. It cannot steal a
+lease from another device. Cast requires the target's separate
+`Preferences.allowReceiverHandoff` consent, also false by default, when busy.
+Readiness rechecks consent and prepares the new stream before retiring the old one.
+Older gateways may ignore these additive fields and retain first-armed exclusion.
+
+`PlaybackRequest.receiverId` optionally binds a YouTube command's plan to its lease;
+a revoked lease returns `receiver_changed` even if upstream resolution finishes
+later. Older clients retain the receiver-source fallback. `receiver.changed` is an
+additive event containing a semantic transport name, never a worker token or URL.
+Replacing a lease does not automatically restore or re-arm its upstream sender.

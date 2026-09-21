@@ -44,3 +44,10 @@ No product milestone or physical gate is closed.
 
 Additive measured-network and federated-search contracts; bounded streaming transport sample. API version remains 1.
 No physical, account or product milestone closes.
+
+## dev.22 increment
+
+Additive receiver replacement requests, receiver-bound playback and target-owned Cast handoff consent; 49 schema fixtures.
+No product or physical acceptance gate closes.
+
+Verification: 49 draft schemas/fixtures and live handler response contracts pass; fields are additive and default replacement consent remains false.

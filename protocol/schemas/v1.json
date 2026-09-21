@@ -421,6 +421,10 @@
         "allowCasting": {
           "type": "boolean",
           "default": false
+        },
+        "allowReceiverHandoff": {
+          "type": "boolean",
+          "default": false
         }
       },
       "required": ["mode", "uiLanguage", "audioLanguages", "subtitleLanguages", "subtitleMode"],
@@ -668,6 +672,10 @@
         "networkAdaptation": {
           "type": "boolean",
           "description": "Auto mode only; false bypasses optional measured LAN bitrate policy."
+        },
+        "receiverId": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{32}$"
         }
       },
       "required": ["itemId"],
@@ -678,6 +686,10 @@
       "properties": {
         "receiverId": {
           "type": "string"
+        },
+        "replaceExisting": {
+          "type": "boolean",
+          "default": false
         }
       },
       "required": ["receiverId"],
@@ -1371,6 +1383,10 @@
       "properties": {
         "provider": {
           "enum": ["spotify", "airplay", "auto"]
+        },
+        "replaceExisting": {
+          "type": "boolean",
+          "default": false
         }
       },
       "required": ["provider"],
@@ -1725,6 +1741,16 @@
           "items": {
             "$ref": "#/$defs/SearchSection"
           }
+        }
+      },
+      "additionalProperties": true
+    },
+    "YouTubeReceiverRequest": {
+      "type": "object",
+      "properties": {
+        "replaceExisting": {
+          "type": "boolean",
+          "default": false
         }
       },
       "additionalProperties": true
