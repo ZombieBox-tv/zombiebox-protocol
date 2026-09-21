@@ -33,3 +33,9 @@ No product milestone or physical/account gate closes with this checkpoint.
 
 Additive suite/cache/operation probe fields and bounded browser pointer coordinates. Legacy fixtures remain accepted.
 Product exit gates and physical/account acceptance remain open.
+
+## dev.17 increment
+
+Adds optional guide freshness and integration-hint fields; first-party GPL licensing. Shared Android transport behavior is unchanged.
+
+No product milestone or physical gate is closed.

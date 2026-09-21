@@ -8,7 +8,8 @@
     "Dev.11: Additive BrowsePage/browseId/playable contract and playback POST timeout for remote probes; no provider URLs or credentials in the client contract. Product exit gates remain open.",
     "Dev.12: MediaReceiver snapshot/selection contracts and documented CastGrant constraints. Physical validation remains separate.",
     "Dev.13: Adds optional bounded PlaybackRequest.positionMs; older clients retain stored-history behavior. Product exit gates remain open.",
-    "Dev.16: Additive suite/cache/operation probe fields and bounded browser pointer coordinates. Legacy fixtures remain accepted. No product milestone closes."
+    "Dev.16: Additive suite/cache/operation probe fields and bounded browser pointer coordinates. Legacy fixtures remain accepted. No product milestone closes.",
+    "Dev.17: GPL-3.0-only licensing, navigation/Hero/guide/receiver and scoped distribution increment. No physical milestone is closed."
   ],
   "milestones": [
     {
@@ -89,5 +90,5 @@
       "remoteId": null
     }
   ],
-  "developmentCheckpoint": "v0.1.0-dev.16"
+  "developmentCheckpoint": "v0.1.0-dev.17"
 }
