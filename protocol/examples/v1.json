@@ -296,5 +296,16 @@
         "state": "DISABLED"
       }
     ]
+  },
+  "ProbeManifest": {
+    "apiVersion": 1,
+    "suiteVersion": 1,
+    "probes": [
+      {
+        "id": "aac",
+        "url": "/v1/probes/aac?expires=123&ticket=fixture",
+        "video": false
+      }
+    ]
   }
 }

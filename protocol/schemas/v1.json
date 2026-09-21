@@ -142,6 +142,22 @@
               "prepareMs": {
                 "type": "integer",
                 "minimum": 0
+              },
+              "firstFrameMs": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 60000
+              },
+              "positionMs": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 60000
+              },
+              "completed": {
+                "type": "boolean"
+              },
+              "droppedOrStalled": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -1064,6 +1080,48 @@
       },
       "required": [
         "action"
+      ],
+      "additionalProperties": true
+    },
+    "ProbeManifest": {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "const": 1
+        },
+        "suiteVersion": {
+          "const": 1
+        },
+        "probes": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "pattern": "^/v1/probes/"
+              },
+              "video": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "url",
+              "video"
+            ],
+            "additionalProperties": true
+          }
+        }
+      },
+      "required": [
+        "apiVersion",
+        "suiteVersion",
+        "probes"
       ],
       "additionalProperties": true
     }
