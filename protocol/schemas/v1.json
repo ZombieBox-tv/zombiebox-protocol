@@ -664,6 +664,10 @@
         },
         "quality": {
           "enum": ["STANDARD", "LOW"]
+        },
+        "networkAdaptation": {
+          "type": "boolean",
+          "description": "Auto mode only; false bypasses optional measured LAN bitrate policy."
         }
       },
       "required": ["itemId"],
@@ -1640,6 +1644,89 @@
         "recentFailures",
         "limitations"
       ],
+      "additionalProperties": true
+    },
+    "NetworkSampleReport": {
+      "type": "object",
+      "required": ["sampleId", "bytes", "elapsedMs"],
+      "properties": {
+        "sampleId": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 32768,
+          "maximum": 1048576
+        },
+        "elapsedMs": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4500
+        }
+      },
+      "additionalProperties": true
+    },
+    "NetworkEstimate": {
+      "type": "object",
+      "required": ["kbps", "validForSeconds"],
+      "properties": {
+        "kbps": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 200000
+        },
+        "validForSeconds": {
+          "type": "integer",
+          "minimum": 300,
+          "maximum": 300
+        }
+      },
+      "additionalProperties": true
+    },
+    "SearchSection": {
+      "type": "object",
+      "required": ["provider", "state", "items", "more"],
+      "properties": {
+        "provider": {
+          "type": "string",
+          "enum": ["youtube", "plex", "jellyfin", "stremio", "iptv", "local"]
+        },
+        "state": {
+          "type": "string",
+          "enum": ["READY", "DISABLED", "UNAVAILABLE"]
+        },
+        "items": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {
+            "$ref": "#/$defs/MediaItem"
+          }
+        },
+        "more": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true
+    },
+    "SearchResults": {
+      "type": "object",
+      "required": ["query", "sections"],
+      "properties": {
+        "query": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 200
+        },
+        "sections": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/SearchSection"
+          }
+        }
+      },
       "additionalProperties": true
     }
   }

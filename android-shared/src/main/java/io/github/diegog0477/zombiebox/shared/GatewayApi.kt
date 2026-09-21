@@ -2,6 +2,7 @@ package io.github.diegog0477.zombiebox.shared
 
 import java.io.ByteArrayOutputStream
 import java.net.HttpURLConnection
+import java.net.SocketTimeoutException
 import java.net.URL
 import java.util.Collections
 import org.json.JSONObject
@@ -45,6 +46,53 @@ class GatewayApi {
 
     fun frame(path: String): ByteArray = bytes("GET", path, null, "")
 
+    /** Timed, streaming sample. No 1-MiB allocation, redirects or compression. */
+    fun downloadSample(): DownloadSample {
+        if (closed) throw GatewayFailure(503)
+        val settings = profile
+        val endpoint = URL(settings.base + "/v1/network/sample")
+        require(endpoint.protocol in listOf("http", "https") && endpoint.userInfo == null)
+        val http = endpoint.openConnection() as HttpURLConnection
+        val started = System.nanoTime()
+        var received = 0
+        active.add(http)
+        try {
+            if (closed) throw GatewayFailure(503)
+            http.connectTimeout = 1500
+            http.readTimeout = 1500
+            http.instanceFollowRedirects = false
+            http.useCaches = false
+            http.setRequestProperty("Accept-Encoding", "identity")
+            http.setRequestProperty("Authorization", "Bearer ${settings.token}")
+            http.setRequestProperty("X-Zombie-Device", settings.device)
+            if (http.responseCode != 200 || http.contentLength != 1048576) throw GatewayFailure(502)
+            val id = http.getHeaderField("X-Zombie-Sample") ?: throw GatewayFailure(502)
+            if (!id.matches(Regex("[0-9a-f]{32}"))) throw GatewayFailure(502)
+            http.inputStream.use { input ->
+                val buffer = ByteArray(8192)
+                try {
+                    while (received < 1048576) {
+                        val remaining = 3000 - (System.nanoTime() - started) / 1000000
+                        if (remaining <= 0) break
+                        http.readTimeout = remaining.coerceAtMost(1500).toInt()
+                        val count = input.read(buffer, 0, minOf(buffer.size, 1048576 - received))
+                        if (count < 0) throw GatewayFailure(502)
+                        received += count
+                    }
+                } catch (_: SocketTimeoutException) {
+                    // A time-bounded partial sample measures delivered bytes, not decoder health.
+                }
+            }
+            if (received < 32768 || closed || profile != settings) throw GatewayFailure(503)
+            val elapsed = ((System.nanoTime() - started) / 1000000).coerceAtLeast(1)
+            if (elapsed > 4500) throw GatewayFailure(503)
+            return DownloadSample(id, received, elapsed)
+        } finally {
+            active.remove(http)
+            http.disconnect()
+        }
+    }
+
     private fun bytes(method: String, path: String, body: JSONObject?, admin: String): ByteArray {
         if (closed) throw GatewayFailure(503)
         val settings = profile
@@ -56,9 +104,10 @@ class GatewayApi {
         try {
             if (closed) throw GatewayFailure(503)
             http.requestMethod = method
-            http.connectTimeout = 5000
+            http.connectTimeout = if (path == "/v1/device/network") 1500 else 5000
             http.readTimeout =
-                if (path == "/v1/playback") 30000
+                if (path == "/v1/device/network") 1500
+                else if (path == "/v1/playback") 30000
                 else if (path.startsWith("/v1/events")) 25000
                 else if (path == "/v1/youtube/receiver") 25000
                 else if (path == "/v1/browser") 20000
@@ -110,3 +159,5 @@ class GatewayApi {
 }
 
 class GatewayFailure(val status: Int) : Exception("Gateway request failed")
+
+data class DownloadSample(val id: String, val bytes: Int, val elapsedMs: Long)

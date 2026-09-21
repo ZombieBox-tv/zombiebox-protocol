@@ -416,5 +416,61 @@
     "activePlayback": [],
     "recentFailures": [],
     "limitations": ["Physical acceptance remains pending."]
+  },
+  "NetworkSampleReport": {
+    "sampleId": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "bytes": 1048576,
+    "elapsedMs": 1250
+  },
+  "NetworkEstimate": {
+    "kbps": 6710,
+    "validForSeconds": 300
+  },
+  "SearchSection": {
+    "provider": "plex",
+    "state": "READY",
+    "items": [],
+    "more": false
+  },
+  "SearchResults": {
+    "query": "movie",
+    "sections": [
+      {
+        "provider": "youtube",
+        "state": "DISABLED",
+        "items": [],
+        "more": false
+      },
+      {
+        "provider": "plex",
+        "state": "DISABLED",
+        "items": [],
+        "more": false
+      },
+      {
+        "provider": "jellyfin",
+        "state": "DISABLED",
+        "items": [],
+        "more": false
+      },
+      {
+        "provider": "stremio",
+        "state": "DISABLED",
+        "items": [],
+        "more": false
+      },
+      {
+        "provider": "iptv",
+        "state": "DISABLED",
+        "items": [],
+        "more": false
+      },
+      {
+        "provider": "local",
+        "state": "DISABLED",
+        "items": [],
+        "more": false
+      }
+    ]
   }
 }

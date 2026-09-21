@@ -39,3 +39,8 @@ Product exit gates and physical/account acceptance remain open.
 Adds optional guide freshness and integration-hint fields; first-party GPL licensing. Shared Android transport behavior is unchanged.
 
 No product milestone or physical gate is closed.
+
+## dev.21 increment
+
+Additive measured-network and federated-search contracts; bounded streaming transport sample. API version remains 1.
+No physical, account or product milestone closes.

@@ -42,3 +42,5 @@ First-party code: [GPL-3.0-only](LICENSE). See [NOTICE](NOTICE) for third-party 
 Dev.19: Additive subtitle selection IDs and DiagnosticReport contract; 44 schema fixtures and live response validation.
 
 Dev.20: Additive LOW/STANDARD playback quality and automatic media-receiver selection; NowPlaying accepts AirPlay and automatic idle states.
+
+Dev.21: Additive measured-network and federated-search contracts; bounded streaming transport sample. API version remains 1.
