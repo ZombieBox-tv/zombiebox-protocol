@@ -1,6 +1,6 @@
 # Zombie Protocol v1 checkpoint
 
-`schemas/v1.json` contains 23 versioned domain/response definitions. `examples/v1.json` has one fixture per definition. `make check` validates fixtures, required fields, additive evolution and samples captured from real gateway handlers.
+`schemas/v1.json` contains versioned domain/response definitions. `examples/v1.json` has one fixture per definition. `make check` validates fixtures, required fields, additive evolution and samples captured from real gateway handlers.
 
 ## Transport and identity
 
@@ -30,7 +30,7 @@ Playback fields use `mimeType` and `resumePositionMs`. URLs are gateway-relative
 
 IPTV items may include `subtitle` (current programme title) and `programmes` with title/start/end Unix seconds. These are semantic data, not guide coordinates. Artwork URLs point to the authenticated, bounded gateway derivative endpoint; no pixel layout, provider DTOs or remote HTML is sent.
 
-Local planning uses ffprobe metadata and existing PASS/FAIL/UNKNOWN reports. Unknown support remains a candidate; no SDK/model inference upgrades it to PASS. Advanced overrides apply per playback request. Remux/transcode currently produce non-seekable fragmented MP4 with zero resume offset and a six-hour job deadline. Remote conversion and measured adaptive profiles remain pending. Subtitle/audio-track definitions remain draft. Tests using synthetic media/HTTP fixtures do not prove decoder or live provider compatibility.
+Local planning uses ffprobe metadata and existing PASS/FAIL/UNKNOWN reports. Unknown support remains a candidate; no SDK/model inference upgrades it to PASS. Advanced overrides apply per playback request. Remux/transcode produce non-seekable fragmented MP4 with a six-hour job deadline. Dev.10 adds a timeline offset for gateway-side resume. Remote conversion and measured adaptive profiles remain pending. AudioTrack/SubtitleTrack remain unused drafts; the implemented inventory uses MediaTrack and TrackInventory. Tests using synthetic media/HTTP fixtures do not prove decoder or live provider compatibility.
 
 ## Mirroring additions (dev.4)
 
@@ -75,3 +75,29 @@ protocol/UI/playback version 1 and old clients may ignore new optional features.
 These are additive V1 endpoints. Clients without hardware inventory still register.
 A hardware report is optional in registration and appears under the persisted
 DeviceRecord registration. No MAC address, SSID or provider token is collected.
+
+## Local tracks and subtitle additions (dev.10)
+
+- `GET /v1/playback/{id}/tracks` returns `TrackInventory`. Stream indexes are
+  session-scoped integers. Missing tools, remote and live sources return
+  `available: false` with an empty list; missing evidence is not support.
+- `GET /v1/playback/{id}/subtitles/{track}` returns `SubtitleCues` for selectable
+  embedded text. FFmpeg simplifies ASS/SSA to SRT; the gateway normalizes SRT/VTT
+  to plain text. Bitmap tracks are unselectable. Styling, sidecars and burn-in
+  remain pending. Limits: 30 seconds extraction, 2 MiB intermediate text,
+  5,000 cues, 4 KiB per cue and 1 MiB JSON response.
+- `POST /v1/playback/{id}/audio` accepts `AudioSelection`, producing a new
+  transcoded plan with the chosen stream. The client releases the old session
+  before opening the replacement. Validation failures retain the original plan.
+  A two-second capacity grace period allows the old FFmpeg process to be reaped.
+- Optional `timelineOffsetMs` defaults to zero. Add it to decoder positions for
+  progress, display and cues. Converted plans use `resumePositionMs: 0` and remain
+  non-seekable; do not seek twice. Local transcode resume also uses this offset; remux starts at zero because exact keyframe resume is not implemented.
+  Automatic language/native track selection remains pending. Older clients ignore
+  the additive offset and cannot correctly display converted resume timelines;
+  use the matching client for this feature.
+
+These endpoints require session ownership and device authentication; no paths,
+provider headers or arbitrary process arguments are exposed. GatewayApi retains
+its 1 MiB limit and permits 45 seconds for subtitle probe/extraction. The client
+preserves selected subtitles across audio switches, with stale-result guards.

@@ -315,6 +315,10 @@
         },
         "item": {
           "$ref": "#/$defs/MediaItem"
+        },
+        "timelineOffsetMs": {
+          "type": "integer",
+          "minimum": 0
         }
       },
       "required": [
@@ -1141,6 +1145,103 @@
         "externalPlayers",
         "decoders"
       ],
+      "additionalProperties": true
+    },
+    "MediaTrack": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "kind": {
+          "enum": ["audio", "subtitle"]
+        },
+        "language": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "default": {
+          "type": "boolean"
+        },
+        "forced": {
+          "type": "boolean"
+        },
+        "selectable": {
+          "type": "boolean"
+        }
+      },
+      "required": ["id", "kind", "language", "title", "default", "forced", "selectable"],
+      "additionalProperties": true
+    },
+    "TrackInventory": {
+      "type": "object",
+      "properties": {
+        "available": {
+          "type": "boolean"
+        },
+        "tracks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/MediaTrack"
+          }
+        },
+        "audioId": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": ["available", "tracks"],
+      "additionalProperties": true
+    },
+    "SubtitleCue": {
+      "type": "object",
+      "properties": {
+        "startMs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "endMs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": ["startMs", "endMs", "text"],
+      "additionalProperties": true
+    },
+    "SubtitleCues": {
+      "type": "object",
+      "properties": {
+        "cues": {
+          "type": "array",
+          "maxItems": 5000,
+          "items": {
+            "$ref": "#/$defs/SubtitleCue"
+          }
+        }
+      },
+      "required": ["cues"],
+      "additionalProperties": true
+    },
+    "AudioSelection": {
+      "type": "object",
+      "properties": {
+        "audioId": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "positionMs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 604800000
+        }
+      },
+      "required": ["audioId", "positionMs"],
       "additionalProperties": true
     }
   }

@@ -323,5 +323,47 @@
     "abis": [],
     "externalPlayers": [],
     "decoders": []
+  },
+  "MediaTrack": {
+    "id": 1,
+    "kind": "audio",
+    "language": "eng",
+    "title": "English",
+    "default": true,
+    "forced": false,
+    "selectable": true
+  },
+  "TrackInventory": {
+    "available": true,
+    "tracks": [
+      {
+        "id": 1,
+        "kind": "audio",
+        "language": "eng",
+        "title": "English",
+        "default": true,
+        "forced": false,
+        "selectable": true
+      }
+    ],
+    "audioId": 1
+  },
+  "SubtitleCue": {
+    "startMs": 1000,
+    "endMs": 2500,
+    "text": "Hello Zombie"
+  },
+  "SubtitleCues": {
+    "cues": [
+      {
+        "startMs": 1000,
+        "endMs": 2500,
+        "text": "Hello Zombie"
+      }
+    ]
+  },
+  "AudioSelection": {
+    "audioId": 1,
+    "positionMs": 1250
   }
 }
