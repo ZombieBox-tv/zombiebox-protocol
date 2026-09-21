@@ -338,6 +338,10 @@
         "timelineOffsetMs": {
           "type": "integer",
           "minimum": 0
+        },
+        "subtitleId": {
+          "type": "integer",
+          "minimum": 0
         }
       },
       "required": [
@@ -1251,6 +1255,10 @@
         "audioId": {
           "type": "integer",
           "minimum": 0
+        },
+        "subtitleId": {
+          "type": "integer",
+          "minimum": 0
         }
       },
       "required": ["available", "tracks"],
@@ -1359,6 +1367,276 @@
         }
       },
       "required": ["provider"],
+      "additionalProperties": true
+    },
+    "DiagnosticReport": {
+      "type": "object",
+      "properties": {
+        "reportVersion": {
+          "const": 1
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "gateway": {
+          "type": "object",
+          "properties": {
+            "apiVersion": {
+              "const": 1
+            },
+            "os": {
+              "type": "string"
+            },
+            "arch": {
+              "type": "string"
+            },
+            "goVersion": {
+              "type": "string"
+            },
+            "localMedia": {
+              "type": "boolean"
+            },
+            "remoteMedia": {
+              "type": "boolean"
+            }
+          },
+          "required": ["apiVersion", "os", "arch", "goVersion", "localMedia", "remoteMedia"],
+          "additionalProperties": false
+        },
+        "client": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "string"
+            },
+            "platform": {
+              "type": "object",
+              "properties": {
+                "androidApi": {
+                  "type": "integer",
+                  "minimum": 9
+                },
+                "release": {
+                  "type": "string"
+                },
+                "manufacturer": {
+                  "type": "string"
+                },
+                "model": {
+                  "type": "string"
+                },
+                "abis": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": ["androidApi"],
+              "additionalProperties": true
+            },
+            "display": {
+              "type": "object",
+              "properties": {
+                "width": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "height": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "dpi": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "touch": {
+                  "type": "boolean"
+                },
+                "dpad": {
+                  "type": "boolean"
+                }
+              },
+              "required": ["width", "height"],
+              "additionalProperties": true
+            },
+            "memory": {
+              "type": "object",
+              "properties": {
+                "physicalMb": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "memoryClassMb": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "required": [],
+              "additionalProperties": true
+            }
+          },
+          "required": ["version", "platform", "display", "memory"],
+          "additionalProperties": false
+        },
+        "probes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "status": {
+                "enum": ["PASS", "FAIL", "UNKNOWN"]
+              },
+              "prepareMs": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "firstFrameMs": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 60000
+              },
+              "positionMs": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 60000
+              },
+              "completed": {
+                "type": "boolean"
+              },
+              "droppedOrStalled": {
+                "type": "boolean"
+              }
+            },
+            "required": ["id", "status"],
+            "additionalProperties": true
+          }
+        },
+        "modules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              },
+              "features": {
+                "type": ["array", "null"],
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": ["id", "state", "features"],
+            "additionalProperties": false
+          }
+        },
+        "activePlayback": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "mode": {
+                "type": "string"
+              },
+              "live": {
+                "type": "boolean"
+              },
+              "provider": {
+                "type": "string"
+              }
+            },
+            "required": ["mode", "live", "provider"],
+            "additionalProperties": false
+          }
+        },
+        "recentFailures": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "provider": {
+                "type": "string"
+              },
+              "state": {
+                "const": "FAILED"
+              },
+              "at": {
+                "type": "integer"
+              }
+            },
+            "required": ["provider", "state", "at"],
+            "additionalProperties": false
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hardware": {
+          "type": "object",
+          "properties": {
+            "cores": {
+              "type": "integer"
+            },
+            "physicalMb": {
+              "type": "integer"
+            },
+            "storageFreeMb": {
+              "type": "integer"
+            },
+            "glesVersion": {
+              "type": "integer"
+            },
+            "gatewayLatencyMs": {
+              "type": "integer"
+            },
+            "decoderCount": {
+              "type": "integer"
+            },
+            "network": {
+              "type": "string"
+            },
+            "nativeDial": {
+              "type": "string"
+            },
+            "multicast": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "cores",
+            "physicalMb",
+            "storageFreeMb",
+            "glesVersion",
+            "gatewayLatencyMs",
+            "decoderCount",
+            "network",
+            "nativeDial",
+            "multicast"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "reportVersion",
+        "createdAt",
+        "gateway",
+        "client",
+        "probes",
+        "modules",
+        "activePlayback",
+        "recentFailures",
+        "limitations"
+      ],
       "additionalProperties": true
     }
   }

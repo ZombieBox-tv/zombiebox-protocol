@@ -38,3 +38,5 @@ Dev.16: Additive suite/cache/operation probe fields and bounded browser pointer 
 ## License
 
 First-party code: [GPL-3.0-only](LICENSE). See [NOTICE](NOTICE) for third-party scope.
+
+Dev.19: Additive subtitle selection IDs and DiagnosticReport contract; 44 schema fixtures and live response validation.

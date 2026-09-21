@@ -388,5 +388,33 @@
   },
   "MediaReceiverSelection": {
     "provider": "spotify"
+  },
+  "DiagnosticReport": {
+    "reportVersion": 1,
+    "createdAt": "2026-09-21T00:00:00Z",
+    "gateway": {
+      "apiVersion": 1,
+      "os": "linux",
+      "arch": "amd64",
+      "goVersion": "go1.26",
+      "localMedia": true,
+      "remoteMedia": true
+    },
+    "client": {
+      "version": "0.1.0-dev.19",
+      "platform": {
+        "androidApi": 13
+      },
+      "display": {
+        "width": 1280,
+        "height": 720
+      },
+      "memory": {}
+    },
+    "probes": [],
+    "modules": [],
+    "activePlayback": [],
+    "recentFailures": [],
+    "limitations": ["Physical acceptance remains pending."]
   }
 }
