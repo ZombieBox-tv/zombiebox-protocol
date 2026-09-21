@@ -1,30 +1,47 @@
 package io.github.diegog0477.zombiebox.shared
 
-import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.Collections
+import org.json.JSONObject
 
 /** HTTP/1.1 transport; provider credentials are never persisted by the client. */
 class GatewayApi {
     private data class Profile(val base: String, val device: String, val token: String)
+
     @Volatile private var profile = Profile("", "", "")
     @Volatile private var closed = false
     var base: String
         get() = profile.base
-        set(value) { profile = profile.copy(base = value) }
+        set(value) {
+            profile = profile.copy(base = value)
+        }
+
     var device: String
         get() = profile.device
-        set(value) { profile = profile.copy(device = value) }
+        set(value) {
+            profile = profile.copy(device = value)
+        }
+
     var token: String
         get() = profile.token
-        set(value) { profile = profile.copy(token = value) }
-    fun configure(base: String, device: String, token: String) { profile = Profile(base, device, token) }
+        set(value) {
+            profile = profile.copy(token = value)
+        }
+
+    fun configure(base: String, device: String, token: String) {
+        profile = Profile(base, device, token)
+    }
+
     private val active = Collections.synchronizedSet(HashSet<HttpURLConnection>())
 
-    fun request(method: String, path: String, body: JSONObject? = null, admin: String = ""): JSONObject =
-        JSONObject(String(bytes(method, path, body, admin), Charsets.UTF_8))
+    fun request(
+        method: String,
+        path: String,
+        body: JSONObject? = null,
+        admin: String = "",
+    ): JSONObject = JSONObject(String(bytes(method, path, body, admin), Charsets.UTF_8))
 
     fun frame(path: String): ByteArray = bytes("GET", path, null, "")
 
@@ -40,7 +57,10 @@ class GatewayApi {
             if (closed) throw GatewayFailure(503)
             http.requestMethod = method
             http.connectTimeout = 5000
-            http.readTimeout = if (path.startsWith("/v1/events")) 25000 else if (path == "/v1/youtube/receiver") 25000 else if (path == "/v1/browser") 20000 else 12000
+            http.readTimeout =
+                if (path.startsWith("/v1/events")) 25000
+                else if (path == "/v1/youtube/receiver") 25000
+                else if (path == "/v1/browser") 20000 else 12000
             http.instanceFollowRedirects = false
             http.useCaches = false
             http.setRequestProperty("Accept", "application/json")
@@ -74,10 +94,16 @@ class GatewayApi {
             http.disconnect()
         }
     }
-    fun close() { closed = true; disconnect() }
+
+    fun close() {
+        closed = true
+        disconnect()
+    }
+
     fun disconnect() {
         val snapshot = synchronized(active) { active.toList() }
         for (connection in snapshot) connection.disconnect()
     }
 }
+
 class GatewayFailure(val status: Int) : Exception("Gateway request failed")

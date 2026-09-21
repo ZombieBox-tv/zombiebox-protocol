@@ -12,10 +12,7 @@
           "const": 1
         }
       },
-      "required": [
-        "status",
-        "apiVersion"
-      ],
+      "required": ["status", "apiVersion"],
       "additionalProperties": true
     },
     "DeviceRegistration": {
@@ -50,9 +47,7 @@
               }
             }
           },
-          "required": [
-            "androidApi"
-          ],
+          "required": ["androidApi"],
           "additionalProperties": true
         },
         "display": {
@@ -77,10 +72,7 @@
               "type": "boolean"
             }
           },
-          "required": [
-            "width",
-            "height"
-          ],
+          "required": ["width", "height"],
           "additionalProperties": true
         },
         "memory": {
@@ -109,13 +101,7 @@
           "$ref": "#/$defs/HardwareReport"
         }
       },
-      "required": [
-        "clientVersion",
-        "protocolVersion",
-        "platform",
-        "installationId",
-        "pairingCode"
-      ],
+      "required": ["clientVersion", "protocolVersion", "platform", "installationId", "pairingCode"],
       "additionalProperties": true
     },
     "DeviceCapabilities": {
@@ -136,11 +122,7 @@
                 "type": "string"
               },
               "status": {
-                "enum": [
-                  "PASS",
-                  "FAIL",
-                  "UNKNOWN"
-                ]
+                "enum": ["PASS", "FAIL", "UNKNOWN"]
               },
               "prepareMs": {
                 "type": "integer",
@@ -163,19 +145,12 @@
                 "type": "boolean"
               }
             },
-            "required": [
-              "id",
-              "status"
-            ],
+            "required": ["id", "status"],
             "additionalProperties": true
           }
         }
       },
-      "required": [
-        "capabilitiesVersion",
-        "deviceId",
-        "probes"
-      ],
+      "required": ["capabilitiesVersion", "deviceId", "probes"],
       "additionalProperties": true
     },
     "MediaItem": {
@@ -197,12 +172,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "id",
-        "provider",
-        "kind",
-        "title"
-      ],
+      "required": ["id", "provider", "kind", "title"],
       "additionalProperties": true
     },
     "HeroModel": {
@@ -218,9 +188,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "item"
-      ],
+      "required": ["item"],
       "additionalProperties": true
     },
     "SectionModel": {
@@ -242,10 +210,7 @@
           }
         }
       },
-      "required": [
-        "id",
-        "type"
-      ],
+      "required": ["id", "type"],
       "additionalProperties": true
     },
     "ScreenModel": {
@@ -270,12 +235,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "apiVersion",
-        "uiSchemaVersion",
-        "screen",
-        "sections"
-      ],
+      "required": ["apiVersion", "uiSchemaVersion", "screen", "sections"],
       "additionalProperties": true
     },
     "SubtitleTrack": {
@@ -294,11 +254,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "id",
-        "language",
-        "format"
-      ],
+      "required": ["id", "language", "format"],
       "additionalProperties": true
     },
     "AudioTrack": {
@@ -314,10 +270,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "id",
-        "language"
-      ],
+      "required": ["id", "language"],
       "additionalProperties": true
     },
     "PlaybackPlan": {
@@ -330,13 +283,7 @@
           "type": "string"
         },
         "mode": {
-          "enum": [
-            "DIRECT_PLAY",
-            "REMUX",
-            "TRANSCODE",
-            "EXTERNAL_PLAYER",
-            "LIVE_LOW_LATENCY"
-          ]
+          "enum": ["DIRECT_PLAY", "REMUX", "TRANSCODE", "EXTERNAL_PLAYER", "LIVE_LOW_LATENCY"]
         },
         "url": {
           "type": "string"
@@ -389,13 +336,7 @@
           "type": "string"
         },
         "state": {
-          "enum": [
-            "DISABLED",
-            "STARTING",
-            "HEALTHY",
-            "DEGRADED",
-            "FAILED"
-          ]
+          "enum": ["DISABLED", "STARTING", "HEALTHY", "DEGRADED", "FAILED"]
         },
         "features": {
           "type": "array",
@@ -404,10 +345,7 @@
           }
         }
       },
-      "required": [
-        "id",
-        "state"
-      ],
+      "required": ["id", "state"],
       "additionalProperties": true
     },
     "EventEnvelope": {
@@ -426,30 +364,17 @@
           "type": "object"
         }
       },
-      "required": [
-        "apiVersion",
-        "cursor",
-        "type",
-        "payload"
-      ],
+      "required": ["apiVersion", "cursor", "type", "payload"],
       "additionalProperties": true
     },
     "Preferences": {
       "type": "object",
       "properties": {
         "mode": {
-          "enum": [
-            "AUTO",
-            "TV",
-            "DOCKED",
-            "HANDHELD"
-          ]
+          "enum": ["AUTO", "TV", "DOCKED", "HANDHELD"]
         },
         "uiLanguage": {
-          "enum": [
-            "en",
-            "es"
-          ]
+          "enum": ["en", "es"]
         },
         "audioLanguages": {
           "type": "array",
@@ -464,25 +389,14 @@
           }
         },
         "subtitleMode": {
-          "enum": [
-            "auto",
-            "off",
-            "forced",
-            "always"
-          ]
+          "enum": ["auto", "off", "forced", "always"]
         },
         "allowCasting": {
           "type": "boolean",
           "default": false
         }
       },
-      "required": [
-        "mode",
-        "uiLanguage",
-        "audioLanguages",
-        "subtitleLanguages",
-        "subtitleMode"
-      ],
+      "required": ["mode", "uiLanguage", "audioLanguages", "subtitleLanguages", "subtitleMode"],
       "additionalProperties": true
     },
     "RegistrationResponse": {
@@ -514,15 +428,10 @@
           "type": "object",
           "properties": {
             "suggestedMode": {
-              "enum": [
-                "TV",
-                "HANDHELD"
-              ]
+              "enum": ["TV", "HANDHELD"]
             }
           },
-          "required": [
-            "suggestedMode"
-          ],
+          "required": ["suggestedMode"],
           "additionalProperties": true
         },
         "preferences": {
@@ -580,9 +489,7 @@
                   }
                 }
               },
-              "required": [
-                "androidApi"
-              ],
+              "required": ["androidApi"],
               "additionalProperties": true
             },
             "display": {
@@ -607,10 +514,7 @@
                   "type": "boolean"
                 }
               },
-              "required": [
-                "width",
-                "height"
-              ],
+              "required": ["width", "height"],
               "additionalProperties": true
             },
             "memory": {
@@ -636,12 +540,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "clientVersion",
-            "protocolVersion",
-            "platform",
-            "installationId"
-          ],
+          "required": ["clientVersion", "protocolVersion", "platform", "installationId"],
           "additionalProperties": true
         },
         "preferences": {
@@ -651,12 +550,7 @@
           "$ref": "#/$defs/DeviceCapabilities"
         }
       },
-      "required": [
-        "deviceId",
-        "registration",
-        "preferences",
-        "capabilities"
-      ],
+      "required": ["deviceId", "registration", "preferences", "capabilities"],
       "additionalProperties": true
     },
     "ProviderStatus": {
@@ -705,9 +599,7 @@
           }
         }
       },
-      "required": [
-        "providers"
-      ],
+      "required": ["providers"],
       "additionalProperties": true
     },
     "EventBatch": {
@@ -726,11 +618,7 @@
           }
         }
       },
-      "required": [
-        "apiVersion",
-        "cursor",
-        "events"
-      ],
+      "required": ["apiVersion", "cursor", "events"],
       "additionalProperties": true
     },
     "PlaybackRequest": {
@@ -740,18 +628,10 @@
           "type": "string"
         },
         "mode": {
-          "enum": [
-            "AUTO",
-            "DIRECT_PLAY",
-            "REMUX",
-            "TRANSCODE",
-            "EXTERNAL_PLAYER"
-          ]
+          "enum": ["AUTO", "DIRECT_PLAY", "REMUX", "TRANSCODE", "EXTERNAL_PLAYER"]
         }
       },
-      "required": [
-        "itemId"
-      ],
+      "required": ["itemId"],
       "additionalProperties": true
     },
     "CastRequest": {
@@ -761,9 +641,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "receiverId"
-      ],
+      "required": ["receiverId"],
       "additionalProperties": true
     },
     "CastGrant": {
@@ -809,13 +687,7 @@
               "type": "integer"
             }
           },
-          "required": [
-            "codec",
-            "maxWidth",
-            "maxHeight",
-            "fps",
-            "bitrate"
-          ],
+          "required": ["codec", "maxWidth", "maxHeight", "fps", "bitrate"],
           "additionalProperties": true
         }
       },
@@ -851,19 +723,12 @@
                 "type": "boolean"
               }
             },
-            "required": [
-              "deviceId",
-              "name",
-              "online"
-            ],
+            "required": ["deviceId", "name", "online"],
             "additionalProperties": true
           }
         }
       },
-      "required": [
-        "relayAvailable",
-        "receivers"
-      ],
+      "required": ["relayAvailable", "receivers"],
       "additionalProperties": true
     },
     "ActiveCast": {
@@ -880,9 +745,7 @@
           ]
         }
       },
-      "required": [
-        "plan"
-      ],
+      "required": ["plan"],
       "additionalProperties": true
     },
     "IntegrationStatus": {
@@ -910,15 +773,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "id",
-        "provider",
-        "runtime",
-        "implementation",
-        "full",
-        "edge",
-        "state"
-      ],
+      "required": ["id", "provider", "runtime", "implementation", "full", "edge", "state"],
       "additionalProperties": true
     },
     "IntegrationResponse": {
@@ -935,10 +790,7 @@
           }
         }
       },
-      "required": [
-        "apiVersion",
-        "integrations"
-      ],
+      "required": ["apiVersion", "integrations"],
       "additionalProperties": true
     },
     "NowPlaying": {
@@ -963,27 +815,14 @@
           "$ref": "#/$defs/MediaItem"
         }
       },
-      "required": [
-        "provider",
-        "state",
-        "volume",
-        "positionMs"
-      ],
+      "required": ["provider", "state", "volume", "positionMs"],
       "additionalProperties": true
     },
     "PlayerCommand": {
       "type": "object",
       "properties": {
         "action": {
-          "enum": [
-            "pause",
-            "resume",
-            "next",
-            "previous",
-            "stop",
-            "seek",
-            "volume"
-          ]
+          "enum": ["pause", "resume", "next", "previous", "stop", "seek", "volume"]
         },
         "positionMs": {
           "type": "integer",
@@ -996,19 +835,14 @@
           "maximum": 100
         }
       },
-      "required": [
-        "action"
-      ],
+      "required": ["action"],
       "additionalProperties": true
     },
     "AuthorizationPrompt": {
       "type": "object",
       "properties": {
         "state": {
-          "enum": [
-            "NONE",
-            "WAITING"
-          ]
+          "enum": ["NONE", "WAITING"]
         },
         "url": {
           "type": "string"
@@ -1020,9 +854,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "state"
-      ],
+      "required": ["state"],
       "additionalProperties": true
     },
     "BrowserRequest": {
@@ -1033,9 +865,7 @@
           "maxLength": 2048
         }
       },
-      "required": [
-        "url"
-      ],
+      "required": ["url"],
       "additionalProperties": true
     },
     "BrowserSession": {
@@ -1055,35 +885,21 @@
           "const": 90
         }
       },
-      "required": [
-        "sessionId",
-        "width",
-        "height",
-        "idleSeconds"
-      ],
+      "required": ["sessionId", "width", "height", "idleSeconds"],
       "additionalProperties": true
     },
     "BrowserInput": {
       "type": "object",
       "properties": {
         "action": {
-          "enum": [
-            "navigate",
-            "text",
-            "key",
-            "back",
-            "forward",
-            "reload"
-          ]
+          "enum": ["navigate", "text", "key", "back", "forward", "reload"]
         },
         "text": {
           "type": "string",
           "maxLength": 2048
         }
       },
-      "required": [
-        "action"
-      ],
+      "required": ["action"],
       "additionalProperties": true
     },
     "ProbeManifest": {
@@ -1112,20 +928,12 @@
                 "type": "boolean"
               }
             },
-            "required": [
-              "id",
-              "url",
-              "video"
-            ],
+            "required": ["id", "url", "video"],
             "additionalProperties": true
           }
         }
       },
-      "required": [
-        "apiVersion",
-        "suiteVersion",
-        "probes"
-      ],
+      "required": ["apiVersion", "suiteVersion", "probes"],
       "additionalProperties": true
     },
     "YouTubeReceiverState": {
@@ -1135,12 +943,7 @@
           "type": "string"
         },
         "state": {
-          "enum": [
-            "STARTING",
-            "WAITING",
-            "READY",
-            "UNAVAILABLE"
-          ]
+          "enum": ["STARTING", "WAITING", "READY", "UNAVAILABLE"]
         },
         "tvCode": {
           "type": "string"
@@ -1155,14 +958,7 @@
                   "pattern": "^[a-f0-9]{32}$"
                 },
                 "action": {
-                  "enum": [
-                    "play",
-                    "pause",
-                    "resume",
-                    "stop",
-                    "seek",
-                    "volume"
-                  ]
+                  "enum": ["play", "pause", "resume", "stop", "seek", "volume"]
                 },
                 "videoId": {
                   "type": "string"
@@ -1184,10 +980,7 @@
                   "type": "boolean"
                 }
               },
-              "required": [
-                "id",
-                "action"
-              ],
+              "required": ["id", "action"],
               "additionalProperties": true
             },
             {
@@ -1196,12 +989,7 @@
           ]
         }
       },
-      "required": [
-        "receiverId",
-        "state",
-        "tvCode",
-        "command"
-      ],
+      "required": ["receiverId", "state", "tvCode", "command"],
       "additionalProperties": true
     },
     "ReceiverAcknowledgement": {
@@ -1214,14 +1002,7 @@
           "type": "boolean"
         },
         "state": {
-          "enum": [
-            "PLAYING",
-            "PAUSED",
-            "STOPPED",
-            "ENDED",
-            "BUFFERING",
-            "FAILED"
-          ]
+          "enum": ["PLAYING", "PAUSED", "STOPPED", "ENDED", "BUFFERING", "FAILED"]
         },
         "positionMs": {
           "type": "integer",
@@ -1242,15 +1023,7 @@
           "type": "boolean"
         }
       },
-      "required": [
-        "commandId",
-        "success",
-        "state",
-        "positionMs",
-        "durationMs",
-        "volume",
-        "muted"
-      ],
+      "required": ["commandId", "success", "state", "positionMs", "durationMs", "volume", "muted"],
       "additionalProperties": true
     },
     "HardwareReport": {
@@ -1344,10 +1117,7 @@
                 }
               }
             },
-            "required": [
-              "name",
-              "types"
-            ],
+            "required": ["name", "types"],
             "additionalProperties": true
           }
         }

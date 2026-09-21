@@ -110,14 +110,8 @@
   "Preferences": {
     "mode": "AUTO",
     "uiLanguage": "en",
-    "audioLanguages": [
-      "en",
-      "es"
-    ],
-    "subtitleLanguages": [
-      "en",
-      "es"
-    ],
+    "audioLanguages": ["en", "es"],
+    "subtitleLanguages": ["en", "es"],
     "subtitleMode": "auto"
   },
   "RegistrationResponse": {
@@ -134,14 +128,8 @@
     "preferences": {
       "mode": "AUTO",
       "uiLanguage": "en",
-      "audioLanguages": [
-        "en",
-        "es"
-      ],
-      "subtitleLanguages": [
-        "en",
-        "es"
-      ],
+      "audioLanguages": ["en", "es"],
+      "subtitleLanguages": ["en", "es"],
       "subtitleMode": "auto"
     }
   },
@@ -160,14 +148,8 @@
     "preferences": {
       "mode": "AUTO",
       "uiLanguage": "en",
-      "audioLanguages": [
-        "en",
-        "es"
-      ],
-      "subtitleLanguages": [
-        "en",
-        "es"
-      ],
+      "audioLanguages": ["en", "es"],
+      "subtitleLanguages": ["en", "es"],
       "subtitleMode": "auto"
     },
     "capabilities": {
