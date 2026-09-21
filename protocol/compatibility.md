@@ -28,7 +28,7 @@ An empty event cursor establishes the current position. Invalid/expired/restarte
 
 Playback fields use `mimeType` and `resumePositionMs`. URLs are gateway-relative and use opaque short-lived session tickets; they never require provider credentials on the client. Tickets can be supplied to legacy MediaPlayer/external players that cannot reliably attach custom authorization headers. Tickets are bearer secrets and expire or become invalid when stopped.
 
-IPTV items may include `subtitle` (current programme title) and `programmes` with title/start/end Unix seconds. These are semantic data, not guide coordinates. No artwork pipeline, pixel layout, provider DTOs or remote HTML is sent.
+IPTV items may include `subtitle` (current programme title) and `programmes` with title/start/end Unix seconds. These are semantic data, not guide coordinates. Artwork URLs point to the authenticated, bounded gateway derivative endpoint; no pixel layout, provider DTOs or remote HTML is sent.
 
 Local planning uses ffprobe metadata and existing PASS/FAIL/UNKNOWN reports. Unknown support remains a candidate; no SDK/model inference upgrades it to PASS. Advanced overrides apply per playback request. Remux/transcode currently produce non-seekable fragmented MP4 with zero resume offset and a six-hour job deadline. Remote conversion and measured adaptive profiles remain pending. Subtitle/audio-track definitions remain draft. Tests using synthetic media/HTTP fixtures do not prove decoder or live provider compatibility.
 
@@ -56,3 +56,22 @@ Existing clients that PUT preferences without `allowCasting` disable receiving. 
 AirPlay catalog now has separate video and audio live sources; inactive sources
 are not playable. Spotify uses a live MP3 bridge. These additions do not change
 protocol/UI/playback version 1 and old clients may ignore new optional features.
+
+## Receiver and hardware additions (dev.7)
+
+- `POST /v1/youtube/receiver`: claim one foreground receiver lease; returns
+  `YouTubeReceiverState`, including a transient TV pairing code when ready.
+- `GET /v1/youtube/receiver/{id}`: owner-only poll/lease refresh and optional
+  semantic command. A play command includes an item ID accepted by normal playback.
+- `POST /v1/youtube/receiver/{id}/state`: observed `ReceiverAcknowledgement`;
+  an empty command ID is a heartbeat. Failed or stale commands cannot manufacture
+  playback success. Only the owning paired device may acknowledge commands.
+- `DELETE /v1/youtube/receiver/{id}`: release the worker and volatile pairing state.
+- `PUT /v1/device/hardware`: persist a bounded `HardwareReport`. Scanner version
+  and firmware/ABI fingerprint scope inventory. Changed fingerprints clear old
+  capability probe results; unchanged fingerprints retain them. Inventory reports
+  native DIAL and multicast as UNKNOWN; declared codecs are not measured support.
+
+These are additive V1 endpoints. Clients without hardware inventory still register.
+A hardware report is optional in registration and appears under the persisted
+DeviceRecord registration. No MAC address, SSID or provider token is collected.

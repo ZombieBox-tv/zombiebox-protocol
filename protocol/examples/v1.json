@@ -307,5 +307,39 @@
         "video": false
       }
     ]
+  },
+  "YouTubeReceiverState": {
+    "receiverId": "fixture",
+    "state": "READY",
+    "tvCode": "123456789",
+    "command": null
+  },
+  "ReceiverAcknowledgement": {
+    "commandId": "",
+    "success": true,
+    "state": "STOPPED",
+    "positionMs": 0,
+    "durationMs": 0,
+    "volume": 100,
+    "muted": false
+  },
+  "HardwareReport": {
+    "product": "",
+    "device": "",
+    "network": "UNKNOWN",
+    "scannerVersion": 1,
+    "fingerprint": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "keyboard": false,
+    "mouse": false,
+    "nativeDial": "UNKNOWN",
+    "multicast": "UNKNOWN",
+    "cpuCores": 0,
+    "physicalMb": 0,
+    "storageFreeMb": 0,
+    "glesVersion": 0,
+    "gatewayLatencyMs": 0,
+    "abis": [],
+    "externalPlayers": [],
+    "decoders": []
   }
 }
