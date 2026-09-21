@@ -148,6 +148,14 @@
             "required": ["id", "status"],
             "additionalProperties": true
           }
+        },
+        "suiteVersion": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "cacheKey": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
         }
       },
       "required": ["capabilitiesVersion", "deviceId", "probes"],
@@ -908,11 +916,31 @@
       "type": "object",
       "properties": {
         "action": {
-          "enum": ["navigate", "text", "key", "back", "forward", "reload"]
+          "enum": [
+            "navigate",
+            "text",
+            "key",
+            "back",
+            "forward",
+            "reload",
+            "click",
+            "move",
+            "scroll"
+          ]
         },
         "text": {
           "type": "string",
           "maxLength": 2048
+        },
+        "x": {
+          "type": "integer",
+          "minimum": -960,
+          "maximum": 960
+        },
+        "y": {
+          "type": "integer",
+          "minimum": -540,
+          "maximum": 540
         }
       },
       "required": ["action"],
@@ -925,7 +953,8 @@
           "const": 1
         },
         "suiteVersion": {
-          "const": 1
+          "type": "integer",
+          "minimum": 1
         },
         "probes": {
           "type": "array",
@@ -942,11 +971,18 @@
               },
               "video": {
                 "type": "boolean"
+              },
+              "kind": {
+                "enum": ["playback", "seek", "pause-resume", "surface-reattach", "hls"]
               }
             },
             "required": ["id", "url", "video"],
             "additionalProperties": true
           }
+        },
+        "cacheKey": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
         }
       },
       "required": ["apiVersion", "suiteVersion", "probes"],

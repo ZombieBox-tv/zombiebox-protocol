@@ -28,3 +28,8 @@ MediaReceiver snapshot/selection contracts and documented CastGrant constraints.
 
 Adds optional bounded PlaybackRequest.positionMs; older clients retain stored-history behavior.
 No product milestone or physical/account gate closes with this checkpoint.
+
+## dev.16 increment
+
+Additive suite/cache/operation probe fields and bounded browser pointer coordinates. Legacy fixtures remain accepted.
+Product exit gates and physical/account acceptance remain open.

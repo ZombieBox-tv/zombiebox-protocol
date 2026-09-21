@@ -32,3 +32,5 @@ Physical devices over USB/ADB are the default; automated checks do not establish
 legacy runtime or end-to-end account/media compatibility.
 
 Dev.13: Adds optional bounded PlaybackRequest.positionMs; older clients retain stored-history behavior.
+
+Dev.16: Additive suite/cache/operation probe fields and bounded browser pointer coordinates. Legacy fixtures remain accepted.
