@@ -315,7 +315,8 @@
             "DIRECT_PLAY",
             "REMUX",
             "TRANSCODE",
-            "EXTERNAL_PLAYER"
+            "EXTERNAL_PLAYER",
+            "LIVE_LOW_LATENCY"
           ]
         },
         "url": {
@@ -450,6 +451,10 @@
             "forced",
             "always"
           ]
+        },
+        "allowCasting": {
+          "type": "boolean",
+          "default": false
         }
       },
       "required": [
@@ -706,6 +711,158 @@
         "apiVersion",
         "cursor",
         "events"
+      ],
+      "additionalProperties": true
+    },
+    "PlaybackRequest": {
+      "type": "object",
+      "properties": {
+        "itemId": {
+          "type": "string"
+        },
+        "mode": {
+          "enum": [
+            "AUTO",
+            "DIRECT_PLAY",
+            "REMUX",
+            "TRANSCODE",
+            "EXTERNAL_PLAYER"
+          ]
+        }
+      },
+      "required": [
+        "itemId"
+      ],
+      "additionalProperties": true
+    },
+    "CastRequest": {
+      "type": "object",
+      "properties": {
+        "receiverId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "receiverId"
+      ],
+      "additionalProperties": true
+    },
+    "CastGrant": {
+      "type": "object",
+      "properties": {
+        "castId": {
+          "type": "string"
+        },
+        "publishPath": {
+          "type": "string"
+        },
+        "publishUser": {
+          "type": "string"
+        },
+        "publishToken": {
+          "type": "string"
+        },
+        "rtspPort": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535
+        },
+        "leaseSeconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "video": {
+          "type": "object",
+          "properties": {
+            "codec": {
+              "const": "h264"
+            },
+            "maxWidth": {
+              "type": "integer"
+            },
+            "maxHeight": {
+              "type": "integer"
+            },
+            "fps": {
+              "type": "integer"
+            },
+            "bitrate": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "codec",
+            "maxWidth",
+            "maxHeight",
+            "fps",
+            "bitrate"
+          ],
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "castId",
+        "publishPath",
+        "publishUser",
+        "publishToken",
+        "rtspPort",
+        "leaseSeconds",
+        "video"
+      ],
+      "additionalProperties": true
+    },
+    "CastReceivers": {
+      "type": "object",
+      "properties": {
+        "relayAvailable": {
+          "type": "boolean"
+        },
+        "receivers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "deviceId": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "online": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "deviceId",
+              "name",
+              "online"
+            ],
+            "additionalProperties": true
+          }
+        }
+      },
+      "required": [
+        "relayAvailable",
+        "receivers"
+      ],
+      "additionalProperties": true
+    },
+    "ActiveCast": {
+      "type": "object",
+      "properties": {
+        "plan": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/PlaybackPlan"
+            }
+          ]
+        }
+      },
+      "required": [
+        "plan"
       ],
       "additionalProperties": true
     }

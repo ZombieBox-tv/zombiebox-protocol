@@ -1,6 +1,6 @@
 # Zombie Protocol v1 checkpoint
 
-`schemas/v1.json` contains 18 versioned domain/response definitions. `examples/v1.json` has one fixture per definition. `make check` validates fixtures, required fields, additive evolution and samples captured from real gateway handlers.
+`schemas/v1.json` contains 23 versioned domain/response definitions. `examples/v1.json` has one fixture per definition. `make check` validates fixtures, required fields, additive evolution and samples captured from real gateway handlers.
 
 ## Transport and identity
 
@@ -11,7 +11,7 @@ HTTP/1.1 + JSON. API, UI schema, playback and capability versions are independen
 | Endpoint | Behavior |
 |---|---|
 | `GET /v1/device` | Registered device, preferences, capability report; no pairing code/token |
-| `PUT /v1/device/preferences` | Persist mode, EN/ES UI and media-language preferences |
+| `GET/PUT /v1/device/preferences` | Read/persist mode, EN/ES UI, media-language preferences and receiver opt-in |
 | `PUT /v1/device/capabilities` | Persist explicitly measured PASS/FAIL/UNKNOWN reports |
 | `GET /v1/modules` | Actual disabled/starting/healthy/degraded state |
 | `GET /v1/home?provider=&q=` | Semantic hero and bounded sections |
@@ -19,7 +19,7 @@ HTTP/1.1 + JSON. API, UI schema, playback and capability versions are independen
 | `GET /v1/providers` | Configuration flags and server-management status |
 | `PUT /v1/providers/{id}` | Partial, write-only configuration; omitted retains, empty clears |
 | `GET /v1/events?cursor=` | Long poll up to 20 seconds; bounded ring, device filtering |
-| `POST /v1/playback` | `{itemId}` → session and direct-play candidate |
+| `POST /v1/playback` | `{itemId, mode?}` → direct/remux/transcode/external local plan; remote streams remain direct candidates |
 | `PUT /v1/playback/{id}/progress` | Trusted session item + position, duration and state |
 | `DELETE /v1/playback/{id}` | Cancel session and active relay requests |
 | `GET /v1/streams/{id}[/{resource}]?ticket=` | Session-scoped media relay; range/HLS support |
@@ -30,4 +30,10 @@ Playback fields use `mimeType` and `resumePositionMs`. URLs are gateway-relative
 
 IPTV items may include `subtitle` (current programme title) and `programmes` with title/start/end Unix seconds. These are semantic data, not guide coordinates. No artwork pipeline, pixel layout, provider DTOs or remote HTML is sent.
 
-Current playback plans are DIRECT_PLAY candidates; codec-probe-based REMUX/TRANSCODE/EXTERNAL planning remains unimplemented. Subtitle/audio-track definitions remain draft. Tests using synthetic media/HTTP fixtures do not prove decoder or live provider compatibility.
+Local planning uses ffprobe metadata and existing PASS/FAIL/UNKNOWN reports. Unknown support remains a candidate; no SDK/model inference upgrades it to PASS. Advanced overrides apply per playback request. Remux/transcode currently produce non-seekable fragmented MP4 with zero resume offset and a six-hour job deadline. Remote conversion and measured adaptive profiles remain pending. Subtitle/audio-track definitions remain draft. Tests using synthetic media/HTTP fixtures do not prove decoder or live provider compatibility.
+
+## Mirroring additions (dev.4)
+
+`allowCasting` defaults to false. See [mirroring endpoints and lifecycle](../docs/development/mirroring.md). `CastRequest`, `CastGrant`, `CastReceivers` and `ActiveCast` describe the authenticated negotiation. `LIVE_LOW_LATENCY` is an additional PlaybackPlan mode using HLS MPEG-TS; receivers must inspect `live`/`seekable`, not infer a measured latency guarantee. Live playback progress is not added to Continue Watching.
+
+Existing clients that PUT preferences without `allowCasting` disable receiving. Cast sources and internal HLS credentials are ephemeral and are not catalog entries. Gateway restarts clear live casts and invalidate their tickets; persisted device/provider configuration survives.

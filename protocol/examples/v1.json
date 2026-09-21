@@ -213,5 +213,40 @@
         }
       }
     ]
+  },
+  "PlaybackRequest": {
+    "itemId": "local-sample",
+    "mode": "AUTO"
+  },
+  "CastRequest": {
+    "receiverId": "receiver-device"
+  },
+  "CastGrant": {
+    "castId": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "publishPath": "zombie/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "publishUser": "zombie",
+    "publishToken": "test-only",
+    "rtspPort": 8554,
+    "leaseSeconds": 90,
+    "video": {
+      "codec": "h264",
+      "maxWidth": 1280,
+      "maxHeight": 720,
+      "fps": 30,
+      "bitrate": 2000000
+    }
+  },
+  "CastReceivers": {
+    "relayAvailable": true,
+    "receivers": [
+      {
+        "deviceId": "receiver-device",
+        "name": "TV",
+        "online": true
+      }
+    ]
+  },
+  "ActiveCast": {
+    "plan": null
   }
 }
