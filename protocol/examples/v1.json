@@ -17,7 +17,14 @@
   "DeviceCapabilities": {
     "capabilitiesVersion": 1,
     "deviceId": "test-device",
-    "probes": []
+    "probes": [
+      {
+        "id": "hevc-1080-main",
+        "status": "PASS",
+        "positionMs": 2000,
+        "testedAt": 1700000000
+      }
+    ]
   },
   "MediaItem": {
     "id": "sample-1",
@@ -323,7 +330,13 @@
     "gatewayLatencyMs": 0,
     "abis": [],
     "externalPlayers": [],
-    "decoders": []
+    "decoders": [
+      {
+        "name": "fixture.decoder",
+        "types": ["video/hevc"],
+        "probeCandidates": ["hevc-1080-main"]
+      }
+    ]
   },
   "MediaTrack": {
     "id": 1,
