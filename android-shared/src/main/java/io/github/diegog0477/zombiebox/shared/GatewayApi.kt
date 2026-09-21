@@ -23,7 +23,12 @@ class GatewayApi {
     fun configure(base: String, device: String, token: String) { profile = Profile(base, device, token) }
     private val active = Collections.synchronizedSet(HashSet<HttpURLConnection>())
 
-    fun request(method: String, path: String, body: JSONObject? = null, admin: String = ""): JSONObject {
+    fun request(method: String, path: String, body: JSONObject? = null, admin: String = ""): JSONObject =
+        JSONObject(String(bytes(method, path, body, admin), Charsets.UTF_8))
+
+    fun frame(path: String): ByteArray = bytes("GET", path, null, "")
+
+    private fun bytes(method: String, path: String, body: JSONObject?, admin: String): ByteArray {
         if (closed) throw GatewayFailure(503)
         val settings = profile
         val endpoint = URL(settings.base + path)
@@ -35,7 +40,7 @@ class GatewayApi {
             if (closed) throw GatewayFailure(503)
             http.requestMethod = method
             http.connectTimeout = 5000
-            http.readTimeout = if (path.startsWith("/v1/events")) 25000 else 12000
+            http.readTimeout = if (path.startsWith("/v1/events")) 25000 else if (path == "/v1/browser") 20000 else 12000
             http.instanceFollowRedirects = false
             http.useCaches = false
             http.setRequestProperty("Accept", "application/json")
@@ -63,7 +68,7 @@ class GatewayApi {
                     result.write(buffer, 0, count)
                 }
             }
-            return JSONObject(result.toString("UTF-8"))
+            return result.toByteArray()
         } finally {
             active.remove(http)
             http.disconnect()
