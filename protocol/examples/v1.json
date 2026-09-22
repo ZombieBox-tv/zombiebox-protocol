@@ -594,5 +594,24 @@
         "name": "Living room"
       }
     ]
+  },
+  "CompanionMediaQueueRequest": {
+    "id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "items": [
+      {
+        "url": "https://example.org/movie.mp4",
+        "title": "Movie"
+      }
+    ]
+  },
+  "CompanionMediaQueueState": {
+    "id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "phase": "PLAYING",
+    "index": 0,
+    "count": 1,
+    "title": "Movie"
+  },
+  "PlaybackAdaptation": {
+    "plan": null
   }
 }

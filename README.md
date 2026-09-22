@@ -2,8 +2,9 @@
 
 Versioned JSON contracts and the Android HTTP transport shared by both APKs.
 
-This is an independent repository in the Zombie Box workspace. Remotes and hosted
-releases are not configured yet; local commits/tags and dependency pins are real.
+This is an independent repository in the Zombie Box workspace.
+[Source and milestones](https://github.com/DiegoG0477/zombiebox-protocol) are hosted on GitHub.
+Development checkpoints are not stable releases or physical compatibility claims.
 
 - `protocol`: provider-neutral schemas and fixtures.
 - `android-shared`: minSdk9 HttpURLConnection transport and stable credentials model.
@@ -87,3 +88,7 @@ Product milestone and physical/public distribution gates remain open.
 ## dev.34 increment
 
 Additive target selection, QR v2 consent, 24-hour rejection policy and bounded TEXT commands with ephemeral input leases. HTTP protocol remains v1; legacy code consent remains supported.
+
+## dev.35 increment
+
+Additive URL queue and playback adaptation schemas/transport, universal receiver selection and optional worker epoch fields. API version remains 1.

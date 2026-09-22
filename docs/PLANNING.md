@@ -90,3 +90,8 @@ Product milestone and physical/public distribution gates remain open.
 
 Additive target selection, QR v2 consent, 24-hour rejection policy and bounded TEXT commands with ephemeral input leases. HTTP protocol remains v1; legacy code consent remains supported.
 Product exit gates and deferred physical acceptance remain open.
+
+## dev.35 checkpoint
+
+Additive URL queue and playback adaptation schemas/transport, universal receiver selection and optional worker epoch fields. API version remains 1.
+Product milestone completion still requires its recorded acceptance gates.

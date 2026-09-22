@@ -3,7 +3,7 @@
   "repository": "zombiebox-protocol",
   "productRegistry": "workspace:docs/milestones.json",
   "notes": [
-    "Local component scope; product exit gates remain open. No hosted milestones exist.",
+    "Local component scope; product exit gates remain open. Hosted milestones are open; see remoteURL entries.",
     "Dev.10: shared local media tracks/text subtitles and client Home refinement. Cast consumes the protocol transport update. Product exit gates remain open.",
     "Dev.11: Additive BrowsePage/browseId/playable contract and playback POST timeout for remote probes; no provider URLs or credentials in the client contract. Product exit gates remain open.",
     "Dev.12: MediaReceiver snapshot/selection contracts and documented CastGrant constraints. Physical validation remains separate.",
@@ -21,7 +21,8 @@
     "Dev.29: Additive SCREEN/AUDIO request and grant mode; legacy grants retain video, audio-only grants require the bounded AAC contract and omit video. Shared Android transport code is unchanged. Product and physical gates remain open.",
     "Dev.30: Additive companion media receipts/status and shared bounded streaming upload transport; existing SCREEN/AUDIO grants unchanged. Product and physical gates remain open.",
     "Dev.31: Additive HardwareReport codec profiles, encoder roles, declared acceleration and display modes; legacy reports remain valid. Encoder declarations cannot carry decoder probe candidates. Product gates remain open.",
-    "Dev.34: Additive target selection, QR v2 consent, 24-hour rejection policy and bounded TEXT commands with ephemeral input leases. HTTP protocol remains v1; legacy code consent remains supported."
+    "Dev.34: Additive target selection, QR v2 consent, 24-hour rejection policy and bounded TEXT commands with ephemeral input leases. HTTP protocol remains v1; legacy code consent remains supported.",
+    "Dev.35: Additive URL queue and playback adaptation schemas/transport, universal receiver selection and optional worker epoch fields. API version remains 1."
   ],
   "milestones": [
     {
@@ -29,78 +30,90 @@
       "title": "Bootstrap / ADRs",
       "status": "in_progress",
       "completedAt": null,
-      "remoteId": null
+      "remoteId": 1,
+      "remoteURL": "https://github.com/DiegoG0477/zombiebox-protocol/milestone/1"
     },
     {
       "id": "M1",
       "title": "Handshake + Capability Scanner",
       "status": "in_progress",
       "completedAt": null,
-      "remoteId": null
+      "remoteId": 2,
+      "remoteURL": "https://github.com/DiegoG0477/zombiebox-protocol/milestone/2"
     },
     {
       "id": "M2",
       "title": "Embedded Player",
       "status": "in_progress",
       "completedAt": null,
-      "remoteId": null
+      "remoteId": 3,
+      "remoteURL": "https://github.com/DiegoG0477/zombiebox-protocol/milestone/3"
     },
     {
       "id": "M3",
       "title": "Media Capability Probes + Playback Planner",
       "status": "in_progress",
       "completedAt": null,
-      "remoteId": null
+      "remoteId": 4,
+      "remoteURL": "https://github.com/DiegoG0477/zombiebox-protocol/milestone/4"
     },
     {
       "id": "M4",
       "title": "Unified Media UI",
       "status": "in_progress",
       "completedAt": null,
-      "remoteId": null
+      "remoteId": 5,
+      "remoteURL": "https://github.com/DiegoG0477/zombiebox-protocol/milestone/5"
     },
     {
       "id": "M5",
       "title": "YouTube",
       "status": "in_progress",
       "completedAt": null,
-      "remoteId": null
+      "remoteId": 6,
+      "remoteURL": "https://github.com/DiegoG0477/zombiebox-protocol/milestone/6"
     },
     {
       "id": "M6",
       "title": "Spotify + AirPlay",
       "status": "in_progress",
       "completedAt": null,
-      "remoteId": null
+      "remoteId": 7,
+      "remoteURL": "https://github.com/DiegoG0477/zombiebox-protocol/milestone/7"
     },
     {
       "id": "M7",
       "title": "Android Mirror",
       "status": "in_progress",
       "completedAt": null,
-      "remoteId": null
+      "remoteId": 8,
+      "remoteURL": "https://github.com/DiegoG0477/zombiebox-protocol/milestone/8"
     },
     {
       "id": "M8",
       "title": "IPTV",
       "status": "in_progress",
       "completedAt": null,
-      "remoteId": null
+      "remoteId": 9,
+      "remoteURL": "https://github.com/DiegoG0477/zombiebox-protocol/milestone/9"
     },
     {
       "id": "M9",
       "title": "Rebrowser",
       "status": "in_progress",
       "completedAt": null,
-      "remoteId": null
+      "remoteId": 10,
+      "remoteURL": "https://github.com/DiegoG0477/zombiebox-protocol/milestone/10"
     },
     {
       "id": "M11",
       "title": "Public beta",
       "status": "planned",
       "completedAt": null,
-      "remoteId": null
+      "remoteId": 11,
+      "remoteURL": "https://github.com/DiegoG0477/zombiebox-protocol/milestone/11"
     }
   ],
-  "developmentCheckpoint": "v0.1.0-dev.34"
+  "developmentCheckpoint": "v0.1.0-dev.35",
+  "remote": "https://github.com/DiegoG0477/zombiebox-protocol"
 }

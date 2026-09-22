@@ -76,3 +76,37 @@ again at delivery and pastes at the current selection, respecting input filters.
 Commands expire after two seconds, are consumed once and are never persisted or
 echoed in result receipts. Passwords, settings/consent/system dialogs and other apps
 are excluded. The feature does not install an IME or inject OS-wide text.
+
+
+## Direct URL queues (dev.35)
+
+`GET/POST/DELETE /v1/companion/media/queue` use the same scoped companion proof as
+file transfer. POST supplies a random 32-hex `id` and 1–16 `{url,title}` items;
+retrying the same owned ID is idempotent. Status contains only ID, phase,
+zero-based index, count and title, never URLs or credentials. One queue is active
+at a time, matching the global Cast slot. It is ephemeral and expires in six hours.
+
+Each public HTTP(S) direct file is downloaded to bounded temporary storage before
+probing/planning. Downloads have a two-minute deadline and a 256-MiB limit, including
+unknown-length responses. No provider credentials are forwarded. Redirects and
+resolved addresses cannot target private/special networks; playlists, HTML and
+credential-bearing URL authorities are rejected. Only owned natural completion
+advances the queue. Stop, revoke, replacement and failure cancel it. Gateway restart
+clears it. Closing the phone queue screen leaves it running; explicit Stop ends it.
+The paired target can explicitly cancel preparation/playback with
+`DELETE /v1/cast/queue`; stale per-session cleanup cannot cancel another queued item.
+This API does not promise webpage extraction, resumable byte transfers or arbitrary
+HLS/DASH URL import. Provider adapters retain their existing manifest support.
+
+`POST /v1/playback/{session}/adapt` accepts `positionMs` and returns `{plan:null}`
+or a replacement PlaybackPlan. It requires an owned, eligible Auto session and two
+fresh distinct bandwidth observations agreeing on a lower ceiling. A response does
+not revoke the prior session: the client adopts the replacement and then deletes
+the prior stream. This is a controlled restart, not seamless ABR.
+
+`MediaReceiverSelection.provider=universal` explicitly enables cross-receiver
+listening and requires target casting/handoff consent. Spotify/AirPlay and the
+YouTube lease can remain armed while only one transport plays. Private worker
+`epoch` values fence pre-handoff responses/acknowledgements; they are not pairing
+credentials. Unsupported older workers fall back to closing their lease. Client
+YouTube command polling still follows its foreground lifecycle.
