@@ -78,3 +78,8 @@ Product milestones and physical acceptance remain open.
 
 Additive companion media receipts/status and shared bounded streaming upload transport; existing SCREEN/AUDIO grants unchanged.
 Product milestones and deferred physical gates remain open.
+
+## dev.31 increment
+
+Additive HardwareReport codec profiles, encoder roles, declared acceleration and display modes; legacy reports remain valid. Encoder declarations cannot carry decoder probe candidates.
+Product milestone and physical/public distribution gates remain open.

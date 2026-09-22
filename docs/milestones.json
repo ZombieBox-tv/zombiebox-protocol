@@ -19,7 +19,8 @@
     "Dev.25: Additive bounded decoder probeCandidates, probe prerequisites and testedAt evidence fields. API1 and legacy fixtures remain compatible.",
     "Dev.27: Adds optional CastRequest.maxVideoHeight (720/1080); omission preserves the old sender contract. No Android transport or thin-Client code changed. Schema checks cover old requests and unsupported ceilings.",
     "Dev.29: Additive SCREEN/AUDIO request and grant mode; legacy grants retain video, audio-only grants require the bounded AAC contract and omit video. Shared Android transport code is unchanged. Product and physical gates remain open.",
-    "Dev.30: Additive companion media receipts/status and shared bounded streaming upload transport; existing SCREEN/AUDIO grants unchanged. Product and physical gates remain open."
+    "Dev.30: Additive companion media receipts/status and shared bounded streaming upload transport; existing SCREEN/AUDIO grants unchanged. Product and physical gates remain open.",
+    "Dev.31: Additive HardwareReport codec profiles, encoder roles, declared acceleration and display modes; legacy reports remain valid. Encoder declarations cannot carry decoder probe candidates. Product gates remain open."
   ],
   "milestones": [
     {
@@ -100,5 +101,5 @@
       "remoteId": null
     }
   ],
-  "developmentCheckpoint": "v0.1.0-dev.30"
+  "developmentCheckpoint": "v0.1.0-dev.31"
 }

@@ -109,3 +109,24 @@ status = Draft202012Validator(
 assert not status.is_valid({"state": "ACCEPTED"})
 status.validate({"state": "ACCEPTED", "mediaId": "a" * 32, "title": "My file"})
 print("PASS: bounded companion media receipts and state")
+
+# Declaration-only native inventory remains additive to legacy scanner reports.
+hardware = Draft202012Validator(
+    {"$defs": schema["$defs"], "$ref": "#/$defs/HardwareReport"}
+)
+old_hardware = fixtures["HardwareReport"]
+hardware.validate(old_hardware)
+encoder = {
+    "name": "declared",
+    "types": ["video/avc"],
+    "acceleration": "UNKNOWN",
+    "profiles": [{"mime": "video/avc", "profile": 1, "level": 256}],
+}
+hardware.validate({**old_hardware, "encoders": [encoder]})
+assert not hardware.is_valid(
+    {**old_hardware, "encoders": [{**encoder, "probeCandidates": ["h264-2160-high"]}]}
+)
+assert not hardware.is_valid(
+    {**old_hardware, "encoders": [{**encoder, "acceleration": "PASS"}]}
+)
+print("PASS: native inventory remains additive and cannot claim encoder probe success")

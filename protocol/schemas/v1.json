@@ -1265,6 +1265,32 @@
                 "items": {
                   "enum": ["h264-2160-high", "hevc-1080-main", "hevc-2160-main"]
                 }
+              },
+              "acceleration": {
+                "enum": ["UNKNOWN", "HARDWARE", "SOFTWARE"]
+              },
+              "profiles": {
+                "type": "array",
+                "maxItems": 8,
+                "uniqueItems": true,
+                "items": {
+                  "type": "object",
+                  "required": ["mime", "profile", "level"],
+                  "properties": {
+                    "mime": {
+                      "type": "string",
+                      "maxLength": 100
+                    },
+                    "profile": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "level": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  }
+                }
               }
             },
             "required": ["name", "types"],
@@ -1277,6 +1303,143 @@
           "items": {
             "type": "string",
             "maxLength": 200
+          }
+        },
+        "encoders": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "maxLength": 200
+              },
+              "types": {
+                "type": "array",
+                "maxItems": 16,
+                "items": {
+                  "type": "string",
+                  "maxLength": 100
+                }
+              },
+              "probeCandidates": {
+                "type": "array",
+                "maxItems": 0,
+                "uniqueItems": true,
+                "items": {
+                  "enum": ["h264-2160-high", "hevc-1080-main", "hevc-2160-main"]
+                }
+              },
+              "acceleration": {
+                "enum": ["UNKNOWN", "HARDWARE", "SOFTWARE"]
+              },
+              "profiles": {
+                "type": "array",
+                "maxItems": 8,
+                "uniqueItems": true,
+                "items": {
+                  "type": "object",
+                  "required": ["mime", "profile", "level"],
+                  "properties": {
+                    "mime": {
+                      "type": "string",
+                      "maxLength": 100
+                    },
+                    "profile": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "level": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  }
+                }
+              }
+            },
+            "required": ["name", "types"],
+            "additionalProperties": true
+          }
+        },
+        "inventoryLimited": {
+          "type": "boolean"
+        },
+        "displays": {
+          "type": "array",
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "width",
+              "height",
+              "refreshMilliHz",
+              "defaultDisplay",
+              "presentation",
+              "activeModeId",
+              "modes"
+            ],
+            "properties": {
+              "id": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "width": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 16384
+              },
+              "height": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 16384
+              },
+              "refreshMilliHz": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 480000
+              },
+              "defaultDisplay": {
+                "type": "boolean"
+              },
+              "presentation": {
+                "type": "boolean"
+              },
+              "activeModeId": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "modes": {
+                "type": "array",
+                "maxItems": 16,
+                "items": {
+                  "type": "object",
+                  "required": ["id", "width", "height", "refreshMilliHz"],
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "width": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 16384
+                    },
+                    "height": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 16384
+                    },
+                    "refreshMilliHz": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 480000
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },
