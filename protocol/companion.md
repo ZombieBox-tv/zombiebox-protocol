@@ -5,20 +5,36 @@ Both use `X-Zombie-Device` plus `Authorization: Bearer ...`, but companion grant
 cannot call ordinary device/provider/admin APIs. All identifiers and secrets use
 lowercase hexadecimal. Do not log request bodies, QR payloads or tokens.
 
-A registered TV requests `POST /v1/device/companions/invitations` with its reachable
-`gateway` base URL. It receives a 384px PNG (base64), six-digit fallback code and
-remaining lifetime, at most two minutes. The QR embeds `CompanionQR`: version,
-locator, invitation ID and ephemeral secret; no reusable device/admin credential.
+A registered TV explicitly displays a QR by requesting
+`POST /v1/device/companions/invitations` with its reachable `gateway` base URL.
+The returned 384px PNG encodes QR version 2, gateway locator, invitation ID and a
+256-bit single-use secret. The server expires it **five minutes after creation**;
+reopening/re-scanning does not extend that expiry. `remainingMs` is bounded by
+300000. Redemption atomically consumes the invitation and creates an APPROVED,
+target-scoped companion grant. There is no second TV acceptance dialog: displaying
+and sharing this short-lived capability is the local consent. The QR contains no
+administrator or reusable TV credential. Previously stored version-1 invitations
+retain their old pending-consent behavior until expiry; no migration upgrades old
+secrets to automatic approval. Only the hash of the new durable phone token is stored.
 
-The phone sends `POST /v1/companion/join` with `name` and either `invitationId` +
-`secret` or `code`. Joining consumes the invitation atomically and returns a
-pending request plus a new token, persisted only as SHA-256 by the gateway.
-The TV polls `GET /v1/device/companions`, compares the displayed six-digit code,
-and locally accepts/rejects via `POST /v1/device/companions/{request}/decision`
-with `accept`. Only the invitation's target can decide. Dismissal rejects.
-The phone polls `POST /v1/companion/requests/{request}` with `token` in the body.
-Expired, denied and replayed invitations grant no access. Approval creates a
-durable, target-scoped grant; request expiry does not revoke an approved grant.
+Network/URL onboarding starts with unauthenticated `GET /v1/companion/targets`.
+It exposes up to 32 currently polling TV IDs/names, not credentials or diagnostic
+reports. Selection posts `name`, `targetId` and a persistent random 64-hex
+`clientKey` to `/v1/companion/join`. A target ID is **not** authorization. The phone
+and TV show the same generated six-digit comparison; only a local TV decision
+`POST /v1/device/companions/{request}/decision` with `accept` creates a grant.
+Pending requests expire in two minutes. The old code-based entry remains supported
+for older callers, with local consent; new Cast UI does not ask users to pre-create
+a code. The phone polls `/v1/companion/requests/{request}` with its temporary token.
+
+A rejection may add `ignore24h: true` (default false). The gateway persists expiring,
+target-scoped hashes of the installation key and source IP for 24 hours, across
+restarts. It coalesces concurrent requests from either identity and caps pending
+requests per target. An attacker changing both key and IP cannot be recognized as
+the same physical device; rate/capacity bounds still apply. IP blocking can affect
+phones sharing a proxy/NAT. The private hashes are never returned in inventory or
+status. Possession of a newly displayed QR may authorize despite a network-request
+block, since it conveys new local consent. Existing approved grants are unaffected.
 
 Before disclosing a saved token to any address, the phone requests
 `POST /v1/companion/proof` with its grant `id` and a fresh 32-hex-character `nonce`.
@@ -49,3 +65,14 @@ revocation are persisted in SQLite; transient commands/heartbeats are not.
 Version remains 1. Unknown optional fields are tolerated. Named response schemas
 and fixtures supplement host HTTP/race and cross-language proof-vector tests.
 Physical camera scanning, TV input timing and mirroring remain separate gates.
+
+## Remote text entry
+
+TV poll requests may advertise `inputId`, an ephemeral 32-hex focus lease for an
+eligible owned text field. Companion status exposes `textInputId` only while the
+TV is active. `TEXT` commands carry `inputId` and 1–512 Unicode characters (no
+control characters). The gateway rejects stale leases; Client checks the lease
+again at delivery and pastes at the current selection, respecting input filters.
+Commands expire after two seconds, are consumed once and are never persisted or
+echoed in result receipts. Passwords, settings/consent/system dialogs and other apps
+are excluded. The feature does not install an IME or inject OS-wide text.

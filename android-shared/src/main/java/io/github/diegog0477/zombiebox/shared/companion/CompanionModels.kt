@@ -23,6 +23,7 @@ data class CompanionStatus(
     val remoteOnline: Boolean,
     val castAvailable: Boolean,
     val lastCommand: String,
+    val textInputId: String = "",
 )
 
 data class PairingInvitation(val code: String, val png: ByteArray, val remainingMs: Long)
@@ -34,4 +35,8 @@ data class RemoteCommand(
     val action: String,
     val provider: String,
     val remainingMs: Long,
+    val text: String = "",
+    val inputId: String = "",
 )
+
+data class PairingTarget(val id: String, val name: String)

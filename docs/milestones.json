@@ -20,7 +20,8 @@
     "Dev.27: Adds optional CastRequest.maxVideoHeight (720/1080); omission preserves the old sender contract. No Android transport or thin-Client code changed. Schema checks cover old requests and unsupported ceilings.",
     "Dev.29: Additive SCREEN/AUDIO request and grant mode; legacy grants retain video, audio-only grants require the bounded AAC contract and omit video. Shared Android transport code is unchanged. Product and physical gates remain open.",
     "Dev.30: Additive companion media receipts/status and shared bounded streaming upload transport; existing SCREEN/AUDIO grants unchanged. Product and physical gates remain open.",
-    "Dev.31: Additive HardwareReport codec profiles, encoder roles, declared acceleration and display modes; legacy reports remain valid. Encoder declarations cannot carry decoder probe candidates. Product gates remain open."
+    "Dev.31: Additive HardwareReport codec profiles, encoder roles, declared acceleration and display modes; legacy reports remain valid. Encoder declarations cannot carry decoder probe candidates. Product gates remain open.",
+    "Dev.34: Additive target selection, QR v2 consent, 24-hour rejection policy and bounded TEXT commands with ephemeral input leases. HTTP protocol remains v1; legacy code consent remains supported."
   ],
   "milestones": [
     {
@@ -101,5 +102,5 @@
       "remoteId": null
     }
   ],
-  "developmentCheckpoint": "v0.1.0-dev.31"
+  "developmentCheckpoint": "v0.1.0-dev.34"
 }

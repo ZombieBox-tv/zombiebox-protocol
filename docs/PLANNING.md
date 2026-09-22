@@ -85,3 +85,8 @@ Product milestones and deferred physical gates remain open.
 
 Additive HardwareReport codec profiles, encoder roles, declared acceleration and display modes; legacy reports remain valid. Encoder declarations cannot carry decoder probe candidates.
 Product milestone and physical/public distribution gates remain open.
+
+## dev.34 implementation checkpoint
+
+Additive target selection, QR v2 consent, 24-hour rejection policy and bounded TEXT commands with ephemeral input leases. HTTP protocol remains v1; legacy code consent remains supported.
+Product exit gates and deferred physical acceptance remain open.

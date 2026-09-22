@@ -491,7 +491,7 @@
     "replaceExisting": true
   },
   "CompanionQR": {
-    "version": 1,
+    "version": 2,
     "gateway": "http://192.168.1.2:8090",
     "invitationId": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "secret": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
@@ -520,9 +520,10 @@
   },
   "CompanionCommand": {
     "id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "action": "PROVIDER",
-    "provider": "youtube",
-    "remainingMs": 2000
+    "action": "TEXT",
+    "remainingMs": 2000,
+    "text": "Find a movie",
+    "inputId": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
   },
   "CompanionResult": {
     "id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -585,5 +586,13 @@
   },
   "CompanionMediaStatus": {
     "state": "NONE"
+  },
+  "CompanionTargets": {
+    "targets": [
+      {
+        "id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "name": "Living room"
+      }
+    ]
   }
 }

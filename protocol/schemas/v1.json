@@ -1993,7 +1993,7 @@
       "type": "object",
       "properties": {
         "version": {
-          "const": 1
+          "enum": [1, 2]
         },
         "gateway": {
           "type": "string",
@@ -2033,7 +2033,7 @@
         "remainingMs": {
           "type": "integer",
           "minimum": 0,
-          "maximum": 120000
+          "maximum": 300000
         }
       },
       "required": ["id", "code", "expires", "qrPng", "remainingMs"],
@@ -2116,7 +2116,8 @@
             "VOLUME_UP",
             "VOLUME_DOWN",
             "MUTE",
-            "PROVIDER"
+            "PROVIDER",
+            "TEXT"
           ]
         },
         "provider": {
@@ -2126,10 +2127,33 @@
           "type": "integer",
           "minimum": 1,
           "maximum": 2000
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "inputId": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$"
         }
       },
       "required": ["id", "action", "remainingMs"],
-      "additionalProperties": true
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "action": {
+                "const": "TEXT"
+              }
+            }
+          },
+          "then": {
+            "required": ["text", "inputId"]
+          }
+        }
+      ]
     },
     "CompanionResult": {
       "type": "object",
@@ -2175,6 +2199,10 @@
         },
         "mediaAvailable": {
           "type": "boolean"
+        },
+        "textInputId": {
+          "type": "string",
+          "pattern": "^([0-9a-f]{32})?$"
         }
       },
       "required": ["grant", "remoteOnline", "castAvailable", "lastCommand"],
@@ -2268,6 +2296,32 @@
           }
         }
       ]
+    },
+    "CompanionTargets": {
+      "type": "object",
+      "properties": {
+        "targets": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_-]{8,80}$"
+              },
+              "name": {
+                "type": "string",
+                "maxLength": 120
+              }
+            },
+            "required": ["id", "name"],
+            "additionalProperties": true
+          }
+        }
+      },
+      "required": ["targets"],
+      "additionalProperties": true
     }
   }
 }

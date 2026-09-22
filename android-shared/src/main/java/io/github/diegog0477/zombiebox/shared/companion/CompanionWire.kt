@@ -5,18 +5,33 @@ import org.json.JSONObject
 
 /** Shared protocol mapping. Presentation never sees JSON or credentials of providers. */
 object CompanionWire {
-    fun join(gateway: String, code: String, qr: String, name: String): PairingAttempt {
+    fun join(
+        gateway: String,
+        code: String,
+        qr: String,
+        name: String,
+        targetId: String = "",
+        clientKey: String = "",
+    ): PairingAttempt {
         var address = gateway
         val body = JSONObject().put("name", name.take(80))
+        if (clientKey.isNotEmpty()) {
+            require(clientKey.matches(Regex("[0-9a-f]{64}")))
+            body.put("clientKey", clientKey)
+        }
         if (qr.isNotEmpty()) {
             require(qr.length <= 1024)
             val payload = JSONObject(qr)
-            require(payload.getInt("version") == 1)
+            require(payload.getInt("version") in 1..2)
             address = payload.getString("gateway")
             val id = payload.getString("invitationId")
             val secret = payload.getString("secret")
             require(id.matches(Regex("[0-9a-f]{32}")) && secret.matches(Regex("[0-9a-f]{64}")))
             body.put("invitationId", id).put("secret", secret)
+        } else if (targetId.isNotEmpty()) {
+            require(targetId.matches(Regex("[A-Za-z0-9_-]{8,80}")))
+            require(clientKey.isNotEmpty())
+            body.put("targetId", targetId)
         } else {
             require(code.matches(Regex("[0-9]{6}")))
             body.put("code", code)
@@ -30,6 +45,24 @@ object CompanionWire {
                 request(result.getJSONObject("request")),
                 result.getString("token"),
             )
+        } finally {
+            api.close()
+        }
+    }
+
+    fun targets(gateway: String): List<PairingTarget> {
+        val api = GatewayApi().apply { base = CompanionTransport.address(gateway) }
+        return try {
+            val values = api.request("GET", "/v1/companion/targets").getJSONArray("targets")
+            (0 until minOf(32, values.length())).map {
+                val value = values.getJSONObject(it)
+                PairingTarget(
+                    value.getString("id").also {
+                        require(it.matches(Regex("[A-Za-z0-9_-]{8,80}")))
+                    },
+                    value.getString("name").take(120),
+                )
+            }
         } finally {
             api.close()
         }
@@ -63,7 +96,7 @@ object CompanionWire {
         return PairingInvitation(
             value.getString("code"),
             android.util.Base64.decode(encoded, android.util.Base64.DEFAULT),
-            value.getLong("remainingMs").coerceIn(0, 120000),
+            value.getLong("remainingMs").coerceIn(0, 300000),
         )
     }
 
@@ -77,12 +110,12 @@ object CompanionWire {
         )
     }
 
-    fun decide(api: GatewayApi, id: String, accept: Boolean) {
+    fun decide(api: GatewayApi, id: String, accept: Boolean, ignore24h: Boolean = false) {
         requireId(id)
         api.request(
             "POST",
             "/v1/device/companions/$id/decision",
-            JSONObject().put("accept", accept),
+            JSONObject().put("accept", accept).put("ignore24h", !accept && ignore24h),
         )
     }
 
@@ -91,9 +124,13 @@ object CompanionWire {
         api.request("DELETE", "/v1/device/companions/$id")
     }
 
-    fun poll(api: GatewayApi, active: Boolean): List<RemoteCommand> {
+    fun poll(api: GatewayApi, active: Boolean, inputId: String = ""): List<RemoteCommand> {
         val values =
-            api.request("POST", "/v1/device/remote/poll", JSONObject().put("active", active))
+            api.request(
+                    "POST",
+                    "/v1/device/remote/poll",
+                    JSONObject().put("active", active).put("inputId", inputId),
+                )
                 .getJSONArray("commands")
         return (0 until minOf(16, values.length())).map {
             val item = values.getJSONObject(it)
@@ -102,6 +139,8 @@ object CompanionWire {
                 item.getString("action"),
                 item.optString("provider"),
                 item.getLong("remainingMs").coerceIn(0, 2000),
+                item.optString("text").take(1024),
+                item.optString("inputId"),
             )
         }
     }
@@ -122,6 +161,7 @@ object CompanionWire {
             value.optBoolean("remoteOnline"),
             value.optBoolean("castAvailable"),
             value.optJSONObject("lastCommand")?.optString("status") ?: "",
+            value.optString("textInputId"),
         )
     }
 
@@ -130,6 +170,16 @@ object CompanionWire {
             "POST",
             "/v1/companion/commands",
             JSONObject().put("action", action).put("provider", provider),
+        )
+    }
+
+    fun sendText(api: CompanionTransport, text: String, inputId: String) {
+        requireId(inputId)
+        require(text.isNotEmpty() && text.length <= 512 && text.none { it.isISOControl() })
+        api.request(
+            "POST",
+            "/v1/companion/commands",
+            JSONObject().put("action", "TEXT").put("text", text).put("inputId", inputId),
         )
     }
 
