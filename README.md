@@ -73,3 +73,8 @@ Adds optional CastRequest.maxVideoHeight (720/1080); omission preserves the old 
 
 Additive SCREEN/AUDIO request and grant mode; legacy grants retain video, audio-only grants require the bounded AAC contract and omit video. Shared Android transport code is unchanged.
 Product milestones and physical acceptance remain open.
+
+## dev.30 increment
+
+Additive companion media receipts/status and shared bounded streaming upload transport; existing SCREEN/AUDIO grants unchanged.
+Product milestones and deferred physical gates remain open.

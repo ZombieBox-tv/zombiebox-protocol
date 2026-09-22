@@ -97,3 +97,15 @@ if core:
     print("PASS: live handler response contracts")
 else:
     print("INFO: set ZOMBIE_CORE_DIR for live gateway contract validation")
+
+receipt = Draft202012Validator(
+    {"$defs": schema["$defs"], "$ref": "#/$defs/CompanionMediaReceipt"}
+)
+for invalid in ("../file", "", "A" * 32):
+    assert not receipt.is_valid({"mediaId": invalid, "state": "UPLOADED"})
+status = Draft202012Validator(
+    {"$defs": schema["$defs"], "$ref": "#/$defs/CompanionMediaStatus"}
+)
+assert not status.is_valid({"state": "ACCEPTED"})
+status.validate({"state": "ACCEPTED", "mediaId": "a" * 32, "title": "My file"})
+print("PASS: bounded companion media receipts and state")

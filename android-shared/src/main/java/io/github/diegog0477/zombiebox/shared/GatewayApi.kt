@@ -1,10 +1,13 @@
 package io.github.diegog0477.zombiebox.shared
 
 import java.io.ByteArrayOutputStream
+import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.SocketTimeoutException
 import java.net.URL
 import java.util.Collections
+import java.util.Timer
+import java.util.TimerTask
 import org.json.JSONObject
 
 /** HTTP/1.1 transport; provider credentials are never persisted by the client. */
@@ -35,6 +38,7 @@ class GatewayApi {
         profile = Profile(base, device, token)
     }
 
+    private val uploads = Collections.synchronizedSet(HashSet<InputStream>())
     private val active = Collections.synchronizedSet(HashSet<HttpURLConnection>())
 
     fun request(
@@ -108,7 +112,7 @@ class GatewayApi {
                 if (path == "/v1/device/network" || path == "/v1/companion/proof") 1500 else 5000
             http.readTimeout =
                 if (path == "/v1/device/network" || path == "/v1/companion/proof") 1500
-                else if (path == "/v1/playback") 30000
+                else if (path == "/v1/playback" || path.startsWith("/v1/companion/media/")) 30000
                 else if (path.startsWith("/v1/events")) 25000
                 else if (path == "/v1/youtube/receiver") 25000
                 else if (path == "/v1/browser") 20000
@@ -148,6 +152,81 @@ class GatewayApi {
         }
     }
 
+    /** Fixed-length, bounded upload; no redirects, whole-file buffering or phone server. */
+    fun upload(path: String, size: Int, input: InputStream, progress: (Int) -> Unit): JSONObject {
+        require(path.matches(Regex("/v1/companion/media/[0-9a-f]{32}")))
+        require(size in 1..268435456)
+        if (closed) throw GatewayFailure(503)
+        val settings = profile
+        val endpoint = URL(settings.base + path)
+        require(endpoint.protocol in listOf("http", "https") && endpoint.userInfo == null)
+        val http = endpoint.openConnection() as HttpURLConnection
+        val timer = Timer("media-upload-deadline", true)
+        active.add(http)
+        uploads.add(input)
+        timer.schedule(
+            object : TimerTask() {
+                override fun run() {
+                    http.disconnect()
+                    try {
+                        input.close()
+                    } catch (_: Exception) {}
+                }
+            },
+            300000,
+        )
+        try {
+            if (closed) throw GatewayFailure(503)
+            http.requestMethod = "PUT"
+            http.connectTimeout = 5000
+            http.readTimeout = 15000
+            http.instanceFollowRedirects = false
+            http.useCaches = false
+            http.doOutput = true
+            http.setRequestProperty("Authorization", "Bearer ${settings.token}")
+            http.setRequestProperty("X-Zombie-Device", settings.device)
+            http.setRequestProperty("Content-Type", "application/octet-stream")
+            http.setFixedLengthStreamingMode(size)
+            http.outputStream.use { output ->
+                val buffer = ByteArray(32768)
+                var sent = 0
+                var reported = -1
+                while (sent < size) {
+                    if (closed || settings != profile) throw GatewayFailure(503)
+                    val count = input.read(buffer, 0, minOf(buffer.size, size - sent))
+                    if (count < 0) throw GatewayFailure(400)
+                    if (count == 0) continue
+                    output.write(buffer, 0, count)
+                    sent += count
+                    val percent = (sent.toLong() * 100 / size).toInt()
+                    if (percent != reported) {
+                        reported = percent
+                        progress(percent)
+                    }
+                }
+                if (input.read() != -1) throw GatewayFailure(413)
+            }
+            if (http.responseCode != 201) throw GatewayFailure(http.responseCode)
+            val result = ByteArrayOutputStream()
+            http.inputStream.use { response ->
+                val buffer = ByteArray(1024)
+                while (true) {
+                    val n = response.read(buffer)
+                    if (n < 0) break
+                    if (result.size() + n > 16384) throw GatewayFailure(502)
+                    result.write(buffer, 0, n)
+                }
+            }
+            if (closed) throw GatewayFailure(503)
+            return JSONObject(String(result.toByteArray(), Charsets.UTF_8))
+        } finally {
+            timer.cancel()
+            uploads.remove(input)
+            active.remove(http)
+            http.disconnect()
+        }
+    }
+
     fun close() {
         closed = true
         disconnect()
@@ -156,6 +235,10 @@ class GatewayApi {
     fun disconnect() {
         val snapshot = synchronized(active) { active.toList() }
         for (connection in snapshot) connection.disconnect()
+        val streams = synchronized(uploads) { uploads.toList() }
+        for (input in streams) try {
+            input.close()
+        } catch (_: Exception) {}
     }
 }
 

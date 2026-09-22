@@ -18,7 +18,8 @@
     "Dev.24: Additive companion schemas/fixtures, shared consent/remote wire mapping and cross-language gateway proof. Protocol version remains 1; no native library or Cast-only dependency enters the shared module. Product and physical gates remain open.",
     "Dev.25: Additive bounded decoder probeCandidates, probe prerequisites and testedAt evidence fields. API1 and legacy fixtures remain compatible.",
     "Dev.27: Adds optional CastRequest.maxVideoHeight (720/1080); omission preserves the old sender contract. No Android transport or thin-Client code changed. Schema checks cover old requests and unsupported ceilings.",
-    "Dev.29: Additive SCREEN/AUDIO request and grant mode; legacy grants retain video, audio-only grants require the bounded AAC contract and omit video. Shared Android transport code is unchanged. Product and physical gates remain open."
+    "Dev.29: Additive SCREEN/AUDIO request and grant mode; legacy grants retain video, audio-only grants require the bounded AAC contract and omit video. Shared Android transport code is unchanged. Product and physical gates remain open.",
+    "Dev.30: Additive companion media receipts/status and shared bounded streaming upload transport; existing SCREEN/AUDIO grants unchanged. Product and physical gates remain open."
   ],
   "milestones": [
     {
@@ -99,5 +100,5 @@
       "remoteId": null
     }
   ],
-  "developmentCheckpoint": "v0.1.0-dev.29"
+  "developmentCheckpoint": "v0.1.0-dev.30"
 }

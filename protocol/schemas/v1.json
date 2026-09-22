@@ -2009,6 +2009,9 @@
         },
         "lastCommand": {
           "$ref": "#/$defs/CompanionResult"
+        },
+        "mediaAvailable": {
+          "type": "boolean"
         }
       },
       "required": ["grant", "remoteOnline", "castAvailable", "lastCommand"],
@@ -2048,6 +2051,60 @@
       },
       "required": ["commands"],
       "additionalProperties": true
+    },
+    "CompanionMediaReceipt": {
+      "type": "object",
+      "required": ["mediaId", "state"],
+      "properties": {
+        "mediaId": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$"
+        },
+        "state": {
+          "enum": ["UPLOADED", "ACCEPTED"]
+        }
+      }
+    },
+    "CompanionMediaPlay": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "maxLength": 120,
+          "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]*$"
+        }
+      }
+    },
+    "CompanionMediaStatus": {
+      "type": "object",
+      "required": ["state"],
+      "properties": {
+        "state": {
+          "enum": ["NONE", "ACCEPTED"]
+        },
+        "mediaId": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{32}$"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 120
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "ACCEPTED"
+              }
+            }
+          },
+          "then": {
+            "required": ["mediaId", "title"]
+          }
+        }
+      ]
     }
   }
 }

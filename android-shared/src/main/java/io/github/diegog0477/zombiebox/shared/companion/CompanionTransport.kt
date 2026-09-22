@@ -21,6 +21,16 @@ class CompanionTransport(
         return api.request(method, path, body)
     }
 
+    fun upload(
+        id: String,
+        size: Int,
+        input: java.io.InputStream,
+        progress: (Int) -> Unit,
+    ): JSONObject {
+        verify(base, this.id, token)
+        return api.upload("/v1/companion/media/$id", size, input, progress)
+    }
+
     fun close() = api.close()
 
     companion object {

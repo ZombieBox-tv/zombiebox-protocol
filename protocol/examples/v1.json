@@ -575,5 +575,15 @@
         "remainingMs": 2000
       }
     ]
+  },
+  "CompanionMediaReceipt": {
+    "mediaId": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "state": "UPLOADED"
+  },
+  "CompanionMediaPlay": {
+    "title": "Holiday video"
+  },
+  "CompanionMediaStatus": {
+    "state": "NONE"
   }
 }
