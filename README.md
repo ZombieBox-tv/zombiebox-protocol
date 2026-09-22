@@ -3,7 +3,7 @@
 Versioned JSON contracts and the Android HTTP transport shared by both APKs.
 
 This is an independent repository in the Zombie Box workspace.
-[Source and milestones](https://github.com/DiegoG0477/zombiebox-protocol) are hosted on GitHub.
+[Source and milestones](https://github.com/ZombieBox-tv/zombiebox-protocol) are hosted on GitHub.
 Development checkpoints are not stable releases or physical compatibility claims.
 
 - `protocol`: provider-neutral schemas and fixtures.

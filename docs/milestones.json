@@ -22,7 +22,8 @@
     "Dev.30: Additive companion media receipts/status and shared bounded streaming upload transport; existing SCREEN/AUDIO grants unchanged. Product and physical gates remain open.",
     "Dev.31: Additive HardwareReport codec profiles, encoder roles, declared acceleration and display modes; legacy reports remain valid. Encoder declarations cannot carry decoder probe candidates. Product gates remain open.",
     "Dev.34: Additive target selection, QR v2 consent, 24-hour rejection policy and bounded TEXT commands with ephemeral input leases. HTTP protocol remains v1; legacy code consent remains supported.",
-    "Dev.35: Additive URL queue and playback adaptation schemas/transport, universal receiver selection and optional worker epoch fields. API version remains 1."
+    "Dev.35: Additive URL queue and playback adaptation schemas/transport, universal receiver selection and optional worker epoch fields. API version remains 1.",
+    "Dev.38: existing repository transferred to ZombieBox-tv with preserved identity/history/releases/milestones. No product completion or physical acceptance is implied."
   ],
   "milestones": [
     {
@@ -31,7 +32,7 @@
       "status": "in_progress",
       "completedAt": null,
       "remoteId": 1,
-      "remoteURL": "https://github.com/DiegoG0477/zombiebox-protocol/milestone/1"
+      "remoteURL": "https://github.com/ZombieBox-tv/zombiebox-protocol/milestone/1"
     },
     {
       "id": "M1",
@@ -39,7 +40,7 @@
       "status": "in_progress",
       "completedAt": null,
       "remoteId": 2,
-      "remoteURL": "https://github.com/DiegoG0477/zombiebox-protocol/milestone/2"
+      "remoteURL": "https://github.com/ZombieBox-tv/zombiebox-protocol/milestone/2"
     },
     {
       "id": "M2",
@@ -47,7 +48,7 @@
       "status": "in_progress",
       "completedAt": null,
       "remoteId": 3,
-      "remoteURL": "https://github.com/DiegoG0477/zombiebox-protocol/milestone/3"
+      "remoteURL": "https://github.com/ZombieBox-tv/zombiebox-protocol/milestone/3"
     },
     {
       "id": "M3",
@@ -55,7 +56,7 @@
       "status": "in_progress",
       "completedAt": null,
       "remoteId": 4,
-      "remoteURL": "https://github.com/DiegoG0477/zombiebox-protocol/milestone/4"
+      "remoteURL": "https://github.com/ZombieBox-tv/zombiebox-protocol/milestone/4"
     },
     {
       "id": "M4",
@@ -63,7 +64,7 @@
       "status": "in_progress",
       "completedAt": null,
       "remoteId": 5,
-      "remoteURL": "https://github.com/DiegoG0477/zombiebox-protocol/milestone/5"
+      "remoteURL": "https://github.com/ZombieBox-tv/zombiebox-protocol/milestone/5"
     },
     {
       "id": "M5",
@@ -71,7 +72,7 @@
       "status": "in_progress",
       "completedAt": null,
       "remoteId": 6,
-      "remoteURL": "https://github.com/DiegoG0477/zombiebox-protocol/milestone/6"
+      "remoteURL": "https://github.com/ZombieBox-tv/zombiebox-protocol/milestone/6"
     },
     {
       "id": "M6",
@@ -79,7 +80,7 @@
       "status": "in_progress",
       "completedAt": null,
       "remoteId": 7,
-      "remoteURL": "https://github.com/DiegoG0477/zombiebox-protocol/milestone/7"
+      "remoteURL": "https://github.com/ZombieBox-tv/zombiebox-protocol/milestone/7"
     },
     {
       "id": "M7",
@@ -87,7 +88,7 @@
       "status": "in_progress",
       "completedAt": null,
       "remoteId": 8,
-      "remoteURL": "https://github.com/DiegoG0477/zombiebox-protocol/milestone/8"
+      "remoteURL": "https://github.com/ZombieBox-tv/zombiebox-protocol/milestone/8"
     },
     {
       "id": "M8",
@@ -95,7 +96,7 @@
       "status": "in_progress",
       "completedAt": null,
       "remoteId": 9,
-      "remoteURL": "https://github.com/DiegoG0477/zombiebox-protocol/milestone/9"
+      "remoteURL": "https://github.com/ZombieBox-tv/zombiebox-protocol/milestone/9"
     },
     {
       "id": "M9",
@@ -103,7 +104,7 @@
       "status": "in_progress",
       "completedAt": null,
       "remoteId": 10,
-      "remoteURL": "https://github.com/DiegoG0477/zombiebox-protocol/milestone/10"
+      "remoteURL": "https://github.com/ZombieBox-tv/zombiebox-protocol/milestone/10"
     },
     {
       "id": "M11",
@@ -111,9 +112,9 @@
       "status": "planned",
       "completedAt": null,
       "remoteId": 11,
-      "remoteURL": "https://github.com/DiegoG0477/zombiebox-protocol/milestone/11"
+      "remoteURL": "https://github.com/ZombieBox-tv/zombiebox-protocol/milestone/11"
     }
   ],
-  "developmentCheckpoint": "v0.1.0-dev.35",
-  "remote": "https://github.com/DiegoG0477/zombiebox-protocol"
+  "developmentCheckpoint": "v0.1.0-dev.38",
+  "remote": "https://github.com/ZombieBox-tv/zombiebox-protocol"
 }
