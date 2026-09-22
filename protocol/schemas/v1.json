@@ -694,6 +694,12 @@
         "replaceExisting": {
           "type": "boolean",
           "default": false
+        },
+        "maxVideoHeight": {
+          "type": "integer",
+          "enum": [720, 1080],
+          "default": 720,
+          "description": "Explicit sender protocol opt-in; the receiver and actual encoder may impose a lower limit. Omission retains the legacy ceiling."
         }
       },
       "required": ["receiverId"],

@@ -33,6 +33,15 @@ print(
     f"PASS: {len(fixtures)} draft schemas + fixtures; required fields and additive evolution"
 )
 
+# Old senders omit the additive ceiling. New senders must request a bounded tier.
+cast = Draft202012Validator({"$defs": schema["$defs"], "$ref": "#/$defs/CastRequest"})
+cast.validate({"receiverId": "legacy-tv"})
+for height in (720, 1080):
+    cast.validate({"receiverId": "tv", "maxVideoHeight": height})
+for height in (0, -1, 2160, "1080", True):
+    assert not cast.is_valid({"receiverId": "tv", "maxVideoHeight": height})
+print("PASS: additive bounded Cast ceiling and legacy omission")
+
 # Optional integration check against the explicitly selected gateway checkout.
 
 core = os.environ.get("ZOMBIE_CORE_DIR")

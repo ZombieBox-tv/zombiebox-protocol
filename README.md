@@ -64,3 +64,7 @@ Full visual/capture policy, extended Remote, HEVC/4K and other product gates rem
 ## dev.25 increment
 
 Additive bounded decoder probeCandidates, probe prerequisites and testedAt evidence fields. API1 and legacy fixtures remain compatible.
+
+## dev.27 increment
+
+Adds optional CastRequest.maxVideoHeight (720/1080); omission preserves the old sender contract. No Android transport or thin-Client code changed. Schema checks cover old requests and unsupported ceilings.

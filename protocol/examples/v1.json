@@ -209,7 +209,8 @@
     "positionMs": 0
   },
   "CastRequest": {
-    "receiverId": "receiver-device"
+    "receiverId": "receiver-device",
+    "maxVideoHeight": 1080
   },
   "CastGrant": {
     "castId": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
