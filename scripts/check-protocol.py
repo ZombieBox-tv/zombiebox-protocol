@@ -42,6 +42,29 @@ for height in (0, -1, 2160, "1080", True):
     assert not cast.is_valid({"receiverId": "tv", "maxVideoHeight": height})
 print("PASS: additive bounded Cast ceiling and legacy omission")
 
+# Audio is explicit opt-in and never silently becomes screen capture.
+for mode in ("SCREEN", "AUDIO"):
+    cast.validate({"receiverId": "tv", "mode": mode})
+for mode in ("", "MEDIA", "audio", None, 1):
+    assert not cast.is_valid({"receiverId": "tv", "mode": mode})
+grant = Draft202012Validator({"$defs": schema["$defs"], "$ref": "#/$defs/CastGrant"})
+legacy = fixtures["CastGrant"]
+audio = {key: value for key, value in legacy.items() if key != "video"}
+audio.update(
+    mode="AUDIO",
+    audio={"codec": "aac", "sampleRate": 44100, "channels": 2, "bitrate": 128000},
+)
+grant.validate(audio)
+assert not grant.is_valid({**audio, "video": legacy["video"]})
+assert not grant.is_valid(
+    {key: value for key, value in audio.items() if key != "audio"}
+)
+assert not grant.is_valid(
+    {key: value for key, value in legacy.items() if key != "video"}
+)
+assert not grant.is_valid({**audio, "audio": {**audio["audio"], "sampleRate": 48000}})
+print("PASS: explicit audio-only grant and legacy screen contract")
+
 # Optional integration check against the explicitly selected gateway checkout.
 
 core = os.environ.get("ZOMBIE_CORE_DIR")

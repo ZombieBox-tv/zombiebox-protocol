@@ -70,3 +70,8 @@ Additive bounded decoder probeCandidates, probe prerequisites and testedAt evide
 ## dev.27 increment
 
 Adds optional CastRequest.maxVideoHeight (720/1080); omission preserves the old sender contract. No Android transport or thin-Client code changed. Schema checks cover old requests and unsupported ceilings.
+
+## dev.29 increment
+
+Additive SCREEN/AUDIO request and grant mode; legacy grants retain video, audio-only grants require the bounded AAC contract and omit video. Shared Android transport code is unchanged.
+Product milestones and physical acceptance remain open.

@@ -700,6 +700,11 @@
           "enum": [720, 1080],
           "default": 720,
           "description": "Explicit sender protocol opt-in; the receiver and actual encoder may impose a lower limit. Omission retains the legacy ceiling."
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["SCREEN", "AUDIO"],
+          "default": "SCREEN"
         }
       },
       "required": ["receiverId"],
@@ -750,6 +755,30 @@
           },
           "required": ["codec", "maxWidth", "maxHeight", "fps", "bitrate"],
           "additionalProperties": true
+        },
+        "mode": {
+          "type": "string",
+          "enum": ["SCREEN", "AUDIO"],
+          "default": "SCREEN"
+        },
+        "audio": {
+          "type": "object",
+          "properties": {
+            "codec": {
+              "const": "aac"
+            },
+            "sampleRate": {
+              "const": 44100
+            },
+            "channels": {
+              "const": 2
+            },
+            "bitrate": {
+              "const": 128000
+            }
+          },
+          "required": ["codec", "sampleRate", "channels", "bitrate"],
+          "additionalProperties": true
         }
       },
       "required": [
@@ -758,10 +787,30 @@
         "publishUser",
         "publishToken",
         "rtspPort",
-        "leaseSeconds",
-        "video"
+        "leaseSeconds"
       ],
-      "additionalProperties": true
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "AUDIO"
+              }
+            },
+            "required": ["mode"]
+          },
+          "then": {
+            "required": ["audio"],
+            "not": {
+              "required": ["video"]
+            }
+          },
+          "else": {
+            "required": ["video"]
+          }
+        }
+      ]
     },
     "CastReceivers": {
       "type": "object",
