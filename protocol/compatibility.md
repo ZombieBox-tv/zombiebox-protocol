@@ -24,6 +24,13 @@ HTTP/1.1 + JSON. API, UI schema, playback and capability versions are independen
 | `DELETE /v1/playback/{id}` | Cancel session and active relay requests |
 | `GET /v1/streams/{id}[/{resource}]?ticket=` | Session-scoped media relay; range/HLS support |
 
+IPTV channel items may include additive `favorite: true`. `GET
+/v1/catalog?provider=iptv&favorites=1&offset=N` returns only currently available
+favorited channels, with the same bounded paging. A paired device can `PUT` or
+`DELETE /v1/iptv/favorites/{itemId}`; the gateway persists up to 256 stable
+channel IDs in SQLite for the household. The playlist remains the source of
+stream URLs and credentials; a removed channel is not resurrected by a favorite.
+
 An empty event cursor establishes the current position. Invalid/expired/restarted cursors return 409 with a replacement cursor. Re-fetch current state and resume polling. `wait=0` is a nonblocking read. Unknown optional fields are accepted; unknown sections can be skipped or shown as a generic media row. Clients must not assume every provider or section is available.
 
 Playback fields use `mimeType` and `resumePositionMs`. URLs are gateway-relative and use opaque short-lived session tickets; they never require provider credentials on the client. Tickets can be supplied to legacy MediaPlayer/external players that cannot reliably attach custom authorization headers. Tickets are bearer secrets and expire or become invalid when stopped.

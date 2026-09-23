@@ -1,5 +1,10 @@
 # zombiebox-protocol: component work
 
+## dev.39 IPTV favorites
+
+Document an additive optional item flag and bounded catalog/action routes.
+Protocol version stays 1; physical behavior remains outside this repository.
+
 The product milestones relevant to this repository are M0, M1, M2, M3, M4, M5, M6, M7, M8, M9, M11.
 The local registry is a component projection of the workspace plan. Closing a
 component task does not close a product-wide milestone or a physical validation gate.

@@ -190,6 +190,9 @@
         "playable": {
           "type": "boolean"
         },
+        "favorite": {
+          "type": "boolean"
+        },
         "guideState": {
           "type": "string",
           "enum": ["FRESH", "STALE", "UNAVAILABLE"]
