@@ -611,6 +611,22 @@
     "count": 1,
     "title": "Movie"
   },
+  "YouTubeAccountStatus": {
+    "configured": true,
+    "connected": false,
+    "state": "pending",
+    "prompt": {
+      "userCode": "ABCD-EFGH",
+      "verificationUrl": "https://www.google.com/device",
+      "expiresAt": 1800000300,
+      "intervalSeconds": 5
+    }
+  },
+  "YouTubeAccountPage": {
+    "apiVersion": 1,
+    "items": [],
+    "nextPageToken": ""
+  },
   "PlaybackAdaptation": {
     "plan": null
   }

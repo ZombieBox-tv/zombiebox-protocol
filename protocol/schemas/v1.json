@@ -2398,6 +2398,37 @@
       "required": ["phase", "index", "count"],
       "additionalProperties": true
     },
+    "YouTubeAccountStatus": {
+      "type": "object",
+      "properties": {
+        "configured": { "type": "boolean" },
+        "connected": { "type": "boolean" },
+        "state": { "enum": ["unconfigured", "disconnected", "pending", "connected", "denied"] },
+        "prompt": {
+          "type": "object",
+          "properties": {
+            "userCode": { "type": "string", "maxLength": 64 },
+            "verificationUrl": { "type": "string", "maxLength": 200 },
+            "expiresAt": { "type": "integer" },
+            "intervalSeconds": { "type": "integer", "minimum": 1 }
+          },
+          "required": ["userCode", "verificationUrl", "expiresAt", "intervalSeconds"],
+          "additionalProperties": true
+        }
+      },
+      "required": ["configured", "connected", "state"],
+      "additionalProperties": true
+    },
+    "YouTubeAccountPage": {
+      "type": "object",
+      "properties": {
+        "apiVersion": { "const": 1 },
+        "items": { "type": "array", "maxItems": 40, "items": { "$ref": "#/$defs/MediaItem" } },
+        "nextPageToken": { "type": "string", "maxLength": 200 }
+      },
+      "required": ["apiVersion", "items"],
+      "additionalProperties": true
+    },
     "PlaybackAdaptation": {
       "type": "object",
       "properties": {

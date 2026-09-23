@@ -175,3 +175,21 @@ a revoked lease returns `receiver_changed` even if upstream resolution finishes
 later. Older clients retain the receiver-source fallback. `receiver.changed` is an
 additive event containing a semantic transport name, never a worker token or URL.
 Replacing a lease does not automatically restore or re-arm its upstream sender.
+
+## dev.41 YouTube account data
+
+The optional `GET /v1/youtube/account` status and `POST
+/v1/youtube/account/authorization` / `POST
+/v1/youtube/account/authorization/poll` expose only a short-lived user code,
+verification URL, expiry and minimum poll interval. The Google device code,
+OAuth client secret and access/refresh tokens remain on the Gateway. A paired
+device may initiate/check authorization; `DELETE /v1/youtube/account` additionally
+requires the current operator code and revokes the local grant.
+
+`GET /v1/youtube/account/subscriptions` and `/playlists` return at most 40
+semantic YouTube channel/playlist items and an optional opaque `nextPageToken`.
+The URL accepts an optional `pageToken`; clients must bound their page history.
+Returned `browseId` values are scoped to the paired device and existing YouTube
+worker configuration. A disabled/unavailable worker can still show account lists
+but cannot open those nodes. Account sign-in does not start TV Code reception or
+change anonymous YouTube playback. Older gateways return 404 for these endpoints.

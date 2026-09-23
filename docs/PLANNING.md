@@ -105,3 +105,8 @@ Product exit gates and deferred physical acceptance remain open.
 
 Additive URL queue and playback adaptation schemas/transport, universal receiver selection and optional worker epoch fields. API version remains 1.
 Product milestone completion still requires its recorded acceptance gates.
+## dev.41 YouTube account contract
+
+Additive paired account status/device prompt and bounded subscriptions/playlists
+pages expose only semantic models. OAuth credentials and Google DTOs stay in Core;
+TV Code remains separate. Account and device acceptance are open.

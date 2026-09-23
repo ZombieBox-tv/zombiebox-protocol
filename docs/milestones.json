@@ -3,6 +3,7 @@
   "repository": "zombiebox-protocol",
   "productRegistry": "workspace:docs/milestones.json",
   "notes": [
+    "Dev.41: Adds bounded YouTube account authorization status and semantic subscription/playlist page contracts; no OAuth token or Google DTO crosses the API. Real-account gates remain open.",
     "Dev.40: Additive IPTV category field/list/filter; API version remains 1 and old clients can ignore category metadata.",
     "Dev.39: Additive IPTV favorite flag, filtered catalog and paired actions; protocol version remains 1 and old fixtures remain accepted. No product milestone closes.",
     "Local component scope; product exit gates remain open. Hosted milestones are open; see remoteURL entries.",
