@@ -193,6 +193,10 @@
         "favorite": {
           "type": "boolean"
         },
+        "category": {
+          "type": "string",
+          "maxLength": 80
+        },
         "guideState": {
           "type": "string",
           "enum": ["FRESH", "STALE", "UNAVAILABLE"]

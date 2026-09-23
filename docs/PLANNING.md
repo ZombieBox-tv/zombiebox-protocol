@@ -1,5 +1,10 @@
 # zombiebox-protocol: component work
 
+## dev.40 IPTV categories
+
+Add an optional bounded item category and document the additive catalog category
+list/filter. Protocol version remains 1; old clients can ignore these fields.
+
 ## dev.39 IPTV favorites
 
 Document an additive optional item flag and bounded catalog/action routes.

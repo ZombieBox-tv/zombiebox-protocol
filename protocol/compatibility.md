@@ -30,6 +30,10 @@ favorited channels, with the same bounded paging. A paired device can `PUT` or
 `DELETE /v1/iptv/favorites/{itemId}`; the gateway persists up to 256 stable
 channel IDs in SQLite for the household. The playlist remains the source of
 stream URLs and credentials; a removed channel is not resurrected by a favorite.
+IPTV items may also include a bounded `category` from M3U group metadata. Catalog
+responses include up to 128 sorted `categories`; `category=NAME` filters current
+channels without changing their stable IDs. Category, favorites and search filters
+can be combined and paged.
 
 An empty event cursor establishes the current position. Invalid/expired/restarted cursors return 409 with a replacement cursor. Re-fetch current state and resume polling. `wait=0` is a nonblocking read. Unknown optional fields are accepted; unknown sections can be skipped or shown as a generic media row. Clients must not assume every provider or section is available.
 

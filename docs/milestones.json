@@ -3,6 +3,7 @@
   "repository": "zombiebox-protocol",
   "productRegistry": "workspace:docs/milestones.json",
   "notes": [
+    "Dev.40: Additive IPTV category field/list/filter; API version remains 1 and old clients can ignore category metadata.",
     "Dev.39: Additive IPTV favorite flag, filtered catalog and paired actions; protocol version remains 1 and old fixtures remain accepted. No product milestone closes.",
     "Local component scope; product exit gates remain open. Hosted milestones are open; see remoteURL entries.",
     "Dev.10: shared local media tracks/text subtitles and client Home refinement. Cast consumes the protocol transport update. Product exit gates remain open.",
