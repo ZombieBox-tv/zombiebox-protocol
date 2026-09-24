@@ -68,6 +68,11 @@ AirPlay catalog now has separate video and audio live sources; inactive sources
 are not playable. Spotify uses a live MP3 bridge. These additions do not change
 protocol/UI/playback version 1 and old clients may ignore new optional features.
 
+`GET /v1/airplay/pairing` returns the AirPlay receiver's four-digit
+PIN only to an authenticated paired device, with `Cache-Control: no-store`.
+It is distinct from the six-digit operator code and unavailable when AirPlay is
+disabled or its private worker cannot be reached. Clients must not persist it.
+
 ## Receiver and hardware additions (dev.7)
 
 - `POST /v1/youtube/receiver`: claim one foreground receiver lease; returns

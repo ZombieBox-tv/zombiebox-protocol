@@ -395,6 +395,9 @@
     ],
     "nextOffset": -1
   },
+  "AirPlayPairing": {
+    "pin": "0427"
+  },
   "MediaReceiver": {
     "enabled": false,
     "provider": "",

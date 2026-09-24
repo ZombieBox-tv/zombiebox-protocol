@@ -1,5 +1,12 @@
 # zombiebox-protocol: component work
 
+## dev.42 AirPlay pairing response
+
+Adds an optional four-digit AirPlayPairing response for the paired Client's
+authenticated, non-cacheable PIN view. This is a receiver password, distinct
+from the gateway operator code. Existing protocol version 1 consumers can
+ignore the route. Real iPad authentication and playback remain physical gates.
+
 ## dev.40 IPTV categories
 
 Add an optional bounded item category and document the additive catalog category
