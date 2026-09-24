@@ -112,6 +112,12 @@ DeviceRecord registration. No MAC address, SSID or provider token is collected.
   Automatic language/native track selection remains pending. Older clients ignore
   the additive offset and cannot correctly display converted resume timelines;
   use the matching client for this feature.
+- `GET /v1/playback/{id}/qualities` returns `QualityInventory` containing the
+  current `selectedId` and selectable `QualityOption`s (including Auto and tiers
+  bounded by actual video source resolution and device probe evidence).
+- `POST /v1/playback/{id}/quality` accepts `QualitySelection` (`qualityId` and `positionMs`),
+  producing a replacement plan at `positionMs`. The choice persists per device/video-kind
+  for later eligible playbacks and falls back to Auto after errors or failed adaptation.
 
 These endpoints require session ownership and device authentication; no paths,
 provider headers or arbitrary process arguments are exposed. GatewayApi retains

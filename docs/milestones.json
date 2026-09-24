@@ -3,6 +3,7 @@
   "repository": "zombiebox-protocol",
   "productRegistry": "workspace:docs/milestones.json",
   "notes": [
+    "Dev.43: Additive quality inventory/selection and YouTube related-page contracts with bounded client requests. Existing API v1 fields remain compatible; device playback quality and recommendation relevance still require physical review.",
     "Dev.42: Additive AirPlayPairing response schema/fixture for a paired, no-store four-digit receiver PIN route. Operator code remains separate; physical iPad authentication and playback are open.",
     "Dev.41: Adds bounded YouTube account authorization status and semantic subscription/playlist page contracts; no OAuth token or Google DTO crosses the API. Real-account gates remain open.",
     "Dev.40: Additive IPTV category field/list/filter; API version remains 1 and old clients can ignore category metadata.",

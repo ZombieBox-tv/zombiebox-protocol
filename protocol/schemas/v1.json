@@ -678,7 +678,7 @@
           "maximum": 604800000
         },
         "quality": {
-          "enum": ["STANDARD", "LOW"]
+          "enum": ["STANDARD", "LOW", "auto", "144p", "240p", "360p", "480p", "720p", "1080p"]
         },
         "networkAdaptation": {
           "type": "boolean",
@@ -1578,6 +1578,58 @@
         }
       },
       "required": ["audioId", "positionMs"],
+      "additionalProperties": true
+    },
+    "QualityOption": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": ["id", "label"],
+      "additionalProperties": true
+    },
+    "QualityInventory": {
+      "type": "object",
+      "properties": {
+        "selectedId": {
+          "type": "string"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/QualityOption"
+          }
+        }
+      },
+      "required": ["selectedId", "options"],
+      "additionalProperties": true
+    },
+    "QualitySelection": {
+      "type": "object",
+      "properties": {
+        "qualityId": {
+          "type": "string"
+        },
+        "positionMs": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 604800000
+        }
+      },
+      "required": ["qualityId", "positionMs"],
       "additionalProperties": true
     },
     "BrowsePage": {

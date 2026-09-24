@@ -381,6 +381,31 @@
     "audioId": 1,
     "positionMs": 1250
   },
+  "QualityOption": {
+    "id": "720p",
+    "label": "720p",
+    "width": 1280,
+    "height": 720
+  },
+  "QualityInventory": {
+    "selectedId": "auto",
+    "options": [
+      {
+        "id": "auto",
+        "label": "Auto"
+      },
+      {
+        "id": "720p",
+        "label": "720p",
+        "width": 1280,
+        "height": 720
+      }
+    ]
+  },
+  "QualitySelection": {
+    "qualityId": "720p",
+    "positionMs": 1250
+  },
   "BrowsePage": {
     "title": "TV library",
     "items": [
