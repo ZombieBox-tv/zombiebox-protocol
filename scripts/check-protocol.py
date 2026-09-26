@@ -148,6 +148,8 @@ hybrid_plan = {
     "resumePositionMs": 0,
 }
 plan_validator.validate(hybrid_plan)
+plan_validator.validate({**hybrid_plan, "prepareBeforePlayback": True})
+assert not plan_validator.is_valid({**hybrid_plan, "prepareBeforePlayback": "yes"})
 
 assert not req_validator.is_valid({"itemId": "item-1", "mode": "HYBRID"}), (
     "PlaybackRequest must reject HYBRID mode override"

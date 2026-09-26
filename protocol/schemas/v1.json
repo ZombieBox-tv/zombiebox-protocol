@@ -346,6 +346,9 @@
         "seekable": {
           "type": "boolean"
         },
+        "prepareBeforePlayback": {
+          "type": "boolean"
+        },
         "resumePositionMs": {
           "type": "integer",
           "minimum": 0

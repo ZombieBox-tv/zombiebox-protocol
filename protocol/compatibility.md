@@ -39,6 +39,14 @@ An empty event cursor establishes the current position. Invalid/expired/restarte
 
 Playback fields use `mimeType` and `resumePositionMs`. URLs are gateway-relative and use opaque short-lived session tickets; they never require provider credentials on the client. Tickets can be supplied to legacy MediaPlayer/external players that cannot reliably attach custom authorization headers. Tickets are bearer secrets and expire or become invalid when stopped.
 
+`prepareBeforePlayback` is an optional plan boolean for bounded, finite
+known-length conversion. When true, the client keeps its loading state and
+polls `HEAD` on the ticketed stream URL with `prepare=1` before handing that URL
+to MediaPlayer. HTTP 202 means preparation is still running; HTTP 200 with a
+positive `Content-Length` means the complete file is ready. Other statuses
+are failures. The client bounds and cancels polling when the session changes.
+Plans without this field retain immediate playback, including live streams.
+
 IPTV items may include `subtitle` (current programme title) and `programmes` with title/start/end Unix seconds. These are semantic data, not guide coordinates. Artwork URLs point to the authenticated, bounded gateway derivative endpoint; no pixel layout, provider DTOs or remote HTML is sent.
 
 Local planning uses ffprobe metadata and existing PASS/FAIL/UNKNOWN reports. Unknown support remains a candidate; no SDK/model inference upgrades it to PASS. Advanced overrides apply per playback request. Remux/transcode produce non-seekable fragmented MP4 with a six-hour job deadline. Automatic planning may also return an internal `HYBRID` plan (copy video, encode audio to AAC, seekable MP4 for non-live media) when proven compatible H.264 video and AAC decoder evidence exist but audio requires transcoding. `HYBRID` is a server response plan only (not client-requestable via PlaybackRequest); clients retry full `TRANSCODE` on failure. Dev.10 adds a timeline offset for gateway-side resume. Remote conversion and measured adaptive profiles remain pending. AudioTrack/SubtitleTrack remain unused drafts; the implemented inventory uses MediaTrack and TrackInventory. Tests using synthetic media/HTTP fixtures do not prove decoder or live provider compatibility.
