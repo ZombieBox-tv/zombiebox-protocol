@@ -313,7 +313,14 @@
           "type": "string"
         },
         "mode": {
-          "enum": ["DIRECT_PLAY", "REMUX", "TRANSCODE", "EXTERNAL_PLAYER", "LIVE_LOW_LATENCY"]
+          "enum": [
+            "DIRECT_PLAY",
+            "REMUX",
+            "HYBRID",
+            "TRANSCODE",
+            "EXTERNAL_PLAYER",
+            "LIVE_LOW_LATENCY"
+          ]
         },
         "url": {
           "type": "string"

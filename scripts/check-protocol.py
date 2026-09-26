@@ -130,3 +130,30 @@ assert not hardware.is_valid(
     {**old_hardware, "encoders": [{**encoder, "acceleration": "PASS"}]}
 )
 print("PASS: native inventory remains additive and cannot claim encoder probe success")
+
+# HYBRID is an internal server response strategy, never a client-requestable override.
+plan_validator = Draft202012Validator(
+    {"$defs": schema["$defs"], "$ref": "#/$defs/PlaybackPlan"}
+)
+req_validator = Draft202012Validator(
+    {"$defs": schema["$defs"], "$ref": "#/$defs/PlaybackRequest"}
+)
+
+base_plan = fixtures["PlaybackPlan"]
+hybrid_plan = {
+    **base_plan,
+    "mode": "HYBRID",
+    "mimeType": "video/mp4",
+    "seekable": True,
+    "resumePositionMs": 0,
+}
+plan_validator.validate(hybrid_plan)
+
+assert not req_validator.is_valid({"itemId": "item-1", "mode": "HYBRID"}), (
+    "PlaybackRequest must reject HYBRID mode override"
+)
+for valid_req_mode in ("AUTO", "DIRECT_PLAY", "REMUX", "TRANSCODE", "EXTERNAL_PLAYER"):
+    req_validator.validate({"itemId": "item-1", "mode": valid_req_mode})
+req_validator.validate({"itemId": "item-1"})
+
+print("PASS: HYBRID accepted in PlaybackPlan response and rejected in PlaybackRequest")
