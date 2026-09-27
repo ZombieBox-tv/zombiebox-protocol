@@ -1072,11 +1072,16 @@
                 "type": "string",
                 "pattern": "^/v1/probes/"
               },
+              "evidenceUrl": {
+                "type": "string",
+                "pattern": "^/v1/probes/",
+                "maxLength": 1024
+              },
               "video": {
                 "type": "boolean"
               },
               "kind": {
-                "enum": ["playback", "seek", "pause-resume", "surface-reattach", "hls"]
+                "enum": ["playback", "seek", "pause-resume", "surface-reattach", "hls", "hls-event"]
               },
               "requires": {
                 "type": "string",
@@ -1093,6 +1098,77 @@
         }
       },
       "required": ["apiVersion", "suiteVersion", "probes"],
+      "additionalProperties": true
+    },
+    "HLSEventProbeEvidence": {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "const": 1
+        },
+        "probeId": {
+          "const": "hls-event-h264-aac"
+        },
+        "runId": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{32}$"
+        },
+        "expiresUnixSeconds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "started": {
+          "type": "boolean"
+        },
+        "initialSegmentCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "publishedSegmentCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        "laterPlaylistReloadCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 32
+        },
+        "deliveredSegmentIndexes": {
+          "type": "array",
+          "uniqueItems": true,
+          "maxItems": 7,
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6
+          }
+        },
+        "laterPlaylistReloadObserved": {
+          "type": "boolean"
+        },
+        "laterSegmentDeliveryObserved": {
+          "type": "boolean"
+        },
+        "publicationComplete": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "apiVersion",
+        "probeId",
+        "runId",
+        "expiresUnixSeconds",
+        "started",
+        "initialSegmentCount",
+        "publishedSegmentCount",
+        "laterPlaylistReloadCount",
+        "deliveredSegmentIndexes",
+        "laterPlaylistReloadObserved",
+        "laterSegmentDeliveryObserved",
+        "publicationComplete"
+      ],
       "additionalProperties": true
     },
     "YouTubeReceiverState": {

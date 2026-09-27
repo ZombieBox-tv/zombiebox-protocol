@@ -290,14 +290,36 @@
   },
   "ProbeManifest": {
     "apiVersion": 1,
-    "suiteVersion": 1,
+    "suiteVersion": 2,
+    "cacheKey": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "probes": [
       {
         "id": "aac",
         "url": "/v1/probes/aac?expires=123&ticket=fixture",
         "video": false
+      },
+      {
+        "id": "hls-event-h264-aac",
+        "url": "/v1/probes/hls-event-h264-aac?device=fixture&expires=123&run=0123456789abcdef0123456789abcdef&ticket=fixture",
+        "evidenceUrl": "/v1/probes/hls-event-h264-aac?device=fixture&evidence=1&expires=123&run=0123456789abcdef0123456789abcdef&ticket=fixture",
+        "video": true,
+        "kind": "hls-event"
       }
     ]
+  },
+  "HLSEventProbeEvidence": {
+    "apiVersion": 1,
+    "probeId": "hls-event-h264-aac",
+    "runId": "0123456789abcdef0123456789abcdef",
+    "expiresUnixSeconds": 1790000000,
+    "started": true,
+    "initialSegmentCount": 2,
+    "publishedSegmentCount": 3,
+    "laterPlaylistReloadCount": 1,
+    "deliveredSegmentIndexes": [0, 1, 2],
+    "laterPlaylistReloadObserved": true,
+    "laterSegmentDeliveryObserved": true,
+    "publicationComplete": false
   },
   "YouTubeReceiverState": {
     "receiverId": "fixture",
