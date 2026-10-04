@@ -14,7 +14,14 @@ class CompanionTransport(
     private val id: String,
     private val token: String,
 ) {
-    private val api = GatewayApi().apply { configure(base, id, token) }
+    private val api =
+        GatewayApi().apply {
+            configure(
+                this@CompanionTransport.base,
+                this@CompanionTransport.id,
+                this@CompanionTransport.token,
+            )
+        }
 
     fun request(method: String, path: String, body: JSONObject? = null): JSONObject {
         verify(base, id, token)
